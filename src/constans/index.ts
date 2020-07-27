@@ -1,0 +1,11 @@
+export const REQUEST_POSTS = 'REQUEST_POSTS';
+export type REQUEST_POSTS = typeof REQUEST_POSTS;
+
+export const REQUEST_USER = 'REQUEST_USER';
+export type REQUEST_USER = typeof REQUEST_USER;
+
+export const RECEIVE_USER = 'RECEIVE_USER';
+export type RECEIVE_USER = typeof RECEIVE_USER;
+
+export const RECEIVE_ERROR_USER = 'RECEIVE_ERROR_USER';
+export type RECEIVE_ERROR_USER = typeof RECEIVE_ERROR_USER;
