@@ -4,16 +4,16 @@ import { register } from '../../store/reducers/user/userActions';
 
 import Register from '../../pages/Register/Register';
 
-const stateToProp = (state: any) => {
+const stateToProps = (state: any) => {
 	return {
 		user: state.user,
 	};
 };
 
-const dispatchToProp = (dispatch: ThunkDispatch<{}, {}, any>) => ({
+const dispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
 	register: (username: string, email: string, password: string) => {
 		dispatch(register(username, email, password));
 	},
 });
 
-export default connect(stateToProp, dispatchToProp)(Register);
+export default connect(stateToProps, dispatchToProps)(Register);

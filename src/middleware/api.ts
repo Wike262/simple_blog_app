@@ -22,7 +22,11 @@ const apiMiddleware = ({ dispatch }: any) => (next: Function) => (action: any) =
 	}
 
 	fetch(`${baseUrl}${url}`, { method: method, headers: fetchHeaders, body: data })
-		.then((response) => response.json())
+		.then((response) => {
+			if (response.statusText === 'OK') {
+				return response.json();
+			} else return response;
+		})
 		.then((data) => {
 			dispatch(onSuccess(data));
 		})

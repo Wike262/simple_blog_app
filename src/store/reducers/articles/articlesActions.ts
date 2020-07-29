@@ -1,86 +1,61 @@
 import * as consts from '../../../constans';
 import * as types from '../../../types';
 import { ThunkDispatch } from 'redux-thunk';
+import { apiAction } from '../../../middleware/apiActions';
 
-export type UserActions = types.RequestUser | types.ReceiveUser | types.FetchErrorUser;
+export type ArticlesActions =
+	| types.RequestArticles
+	| types.ReceiveArticles
+	| types.FetchErrorArticles
+	| types.RequestArticlesComments
+	| types.ReceiveArticlesComments
+	| types.FetchErrorArticlesComments
+	| types.AddArticlesComments
+	| types.RemoveArticlesComments;
 
-export const request = (): types.RequestUser => ({
-	type: consts.REQUEST_USER,
+export const request = (): types.RequestArticles => ({
+	type: consts.REQUEST_ARTICLES,
 });
 
-export const receive = (user: types.User): types.ReceiveUser => ({
-	type: consts.RECEIVE_USER,
-	payload: {
-		loading: false,
-		user,
-	},
-});
+export const receive = (articles: any): types.ReceiveArticles => {
+	return {
+		type: consts.RECEIVE_ARTICLES,
+		payload: {
+			loading: false,
+			articles: articles.articles,
+		},
+	};
+};
 
-export const receiveError = (error: any): types.FetchErrorUser => ({
-	type: consts.RECEIVE_ERROR_USER,
+export const receiveError = (error: any): types.FetchErrorArticles => ({
+	type: consts.RECEIVE_ERROR_ARTICLES,
 	payload: {
 		loading: false,
 		error,
 	},
 });
 
-export const loginWithToken = (token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
+export const getArticlesFeed = (token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
 	dispatch(request());
-
-	return fetch('http://localhost:3000/api/user', {
-		headers: {
-			'Content-Type': 'application/json;charset=utf-8',
-			Authorization: `Bearer ${token}`,
-		},
-	})
-		.then((response) => response.json())
-		.then((json) => {
-			localStorage.setItem('token', json.user.token);
-			dispatch(receive(json.user));
-			return json;
+	return dispatch(
+		apiAction({
+			url: '/articles/feed',
+			onSuccess: receive,
+			onFailure: receiveError,
+			label: 'GET_ARTICLES_FEED',
+			token,
 		})
-		.catch((error) => dispatch(receiveError(error)));
+	);
 };
 
-export const login = (email: string, password: string, token?: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
-	let req = { user: { email, password } };
-
+export const getArticles = () => (dispatch: ThunkDispatch<{}, {}, any>) => {
 	dispatch(request());
-
-	return fetch('http://localhost:3000/api/users/login', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json;charset=utf-8',
-		},
-		body: JSON.stringify(req),
-	})
-		.then((response) => response.json())
-		.then((json) => {
-			localStorage.setItem('token', json.user.token);
-			dispatch(receive(json.user));
-			return json;
+	return dispatch(
+		apiAction({
+			url: '/articles',
+			onSuccess: receive,
+			onFailure: receiveError,
+			label: 'GET_ARTICLES',
 		})
-		.catch((error) => dispatch(receiveError(error)));
-};
-
-export const register = (username: string, email: string, password: string) => (
-	dispatch: ThunkDispatch<{}, {}, any>
-) => {
-	dispatch(request());
-	let req = { user: { username, email, password } };
-
-	return fetch('http://localhost:3000/api/users', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json;charset=utf-8',
-		},
-		body: JSON.stringify(req),
-	})
-		.then((response) => response.json())
-		.then((json) => {
-			localStorage.setItem('token', json.user.token);
-			dispatch(receive(json.user));
-			return json;
-		})
-		.catch((error) => dispatch(receiveError(error)));
+	);
 };

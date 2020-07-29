@@ -6,11 +6,10 @@ const initialState = { email: '', username: '', token: '', loading: false };
 
 const tokenToCookeis = (token: string) => {
 	let date = new Date(Date.now() + 86400e3).toUTCString();
-	console.log(date);
 	document.cookie = `token=${token}; expires=${date}`;
 };
 
-export default (state: types.User = initialState, action: UserActions): types.User | any => {
+export default (state: types.User = initialState, action: UserActions) => {
 	switch (action.type) {
 		case consts.REQUEST_USER:
 			return { ...state, loading: true };

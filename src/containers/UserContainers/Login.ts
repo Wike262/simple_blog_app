@@ -4,16 +4,16 @@ import { login } from '../../store/reducers/user/userActions';
 
 import Login from '../../pages/Login/Login';
 
-const stateToProp = (state: any) => {
+const stateToProps = (state: any) => {
 	return {
 		user: state.user,
 	};
 };
 
-const dispatchToProp = (dispatch: ThunkDispatch<{}, {}, any>) => ({
+const dispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
 	login: (email: string, password: string) => {
 		dispatch(login(email, password));
 	},
 });
 
-export default connect(stateToProp, dispatchToProp)(Login);
+export default connect(stateToProps, dispatchToProps)(Login);
