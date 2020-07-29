@@ -10,6 +10,7 @@ import Home from '../containers/ArticlesContainers/HomePage';
 import SingleArticle from '../containers/ArticlesContainers/SingeArticlePage';
 import ArticleCreate from '../containers/ArticlesContainers/ArticleCreate';
 import Settings from '../containers/UserContainers/Settings';
+import Profile from '../containers/Profile';
 
 import { Page } from './AppStyles';
 
@@ -37,6 +38,7 @@ function getCookie(name: string) {
 
 class App extends React.Component<Props> {
 	componentDidMount = () => {
+		console.log(getCookie('token'));
 		if (getCookie('token')) return this.props.login(getCookie('token'));
 	};
 
@@ -46,7 +48,8 @@ class App extends React.Component<Props> {
 				<NavBar />
 				<Switch>
 					<Route path="/" exact component={Home} />
-					<Route path="/articles/:article" component={(props: any) => <SingleArticle {...props} />} />
+					<Route path="/articles/:article" component={SingleArticle} />
+					<Route path="/profiles/:profile" component={Profile} />
 					<Page>
 						<Container>
 							<Row>

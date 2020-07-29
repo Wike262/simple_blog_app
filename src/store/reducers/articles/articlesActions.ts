@@ -70,6 +70,32 @@ export const getArticles = () => (dispatch: ThunkDispatch<{}, {}, any>) => {
 	);
 };
 
+export const getUserArticles = (username: string, token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
+	dispatch(request());
+	return dispatch(
+		apiAction({
+			url: `/articles?author=${username}`,
+			onSuccess: receive,
+			onFailure: receiveError,
+			label: 'GET_USER_ARTICLES',
+			token,
+		})
+	);
+};
+
+export const getUserFavoritedArticles = (token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
+	dispatch(request());
+	return dispatch(
+		apiAction({
+			url: `/articles?favorited=true`,
+			onSuccess: receive,
+			onFailure: receiveError,
+			label: 'GET_FAVORITED_USER_ARTICLES',
+			token,
+		})
+	);
+};
+
 export const addArticle = (title: string, token: string, description?: string, body?: string, tagList?: string[]) => (
 	dispatch: ThunkDispatch<{}, {}, any>
 ) => {

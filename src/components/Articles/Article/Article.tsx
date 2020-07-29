@@ -17,7 +17,9 @@ const Article = ({ article }: Props) => {
 					<AuthorImage src={article.author.image} alt="Author-Avatar" />
 				</Link>
 				<Info>
-					<Link to={`/profiles/${article.author.username}`}>{article.author.username}</Link>
+					<Link to={{ pathname: `/profiles/${article.author.username}`, state: { author: article.author } }}>
+						{article.author.username}
+					</Link>
 					<p>{date}</p>
 				</Info>
 			</ArticleMeta>

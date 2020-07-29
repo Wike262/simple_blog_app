@@ -12,16 +12,16 @@ const AuthStatus = ({ user }: Props) => {
 		return (
 			<NavList>
 				<NavItem>
-					<NavLink to="/">Home</NavLink>{' '}
+					<NavLink to="/">Home</NavLink>
 				</NavItem>
 				<NavItem>
-					<NavLink to="/article-create">New Article</NavLink>{' '}
+					<NavLink to="/article-create">New Article</NavLink>
 				</NavItem>
 				<NavItem>
-					<NavLink to="/settings">Setting</NavLink>{' '}
+					<NavLink to="/settings">Settings</NavLink>
 				</NavItem>
 				<NavItem>
-					<NavLink to={`/profile/${user.username}`}>{user.username}</NavLink>{' '}
+					<NavLink to={{ pathname: `/profiles/${user.username}`, state: { author: user } }}>{user.username}</NavLink>
 				</NavItem>
 			</NavList>
 		);
@@ -29,10 +29,10 @@ const AuthStatus = ({ user }: Props) => {
 		return (
 			<NavList>
 				<NavItem>
-					<NavLink to="/">Home</NavLink>{' '}
+					<NavLink to="/">Home</NavLink>
 				</NavItem>
 				<NavItem>
-					<NavLink to="/login">Sing In</NavLink>{' '}
+					<NavLink to="/login">Sing In</NavLink>
 				</NavItem>
 				<NavItem>
 					<NavLink to="/register">Sing Up</NavLink>

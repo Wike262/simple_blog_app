@@ -36,8 +36,15 @@ const Login = ({ login, user }: Props) => {
 					<Link to="/register">Need an account?</Link>
 				</Title>
 
-				<Input onChange={handlerChande} id="Login__Email" type="email" placeholder="Email" required />
-				<Input onChange={handlerChande} id="Login__Password" type="password" placeholder="Password" required />
+				<Input onChange={handlerChande} autoComplete="email" id="Login__Email" type="email" placeholder="Email" required />
+				<Input
+					onChange={handlerChande}
+					autoComplete="current-password"
+					id="Login__Password"
+					type="password"
+					placeholder="Password"
+					required
+				/>
 				<Button type="submit" disabled={active}>
 					Sign in
 				</Button>

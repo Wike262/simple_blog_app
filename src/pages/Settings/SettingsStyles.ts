@@ -62,3 +62,17 @@ export const Button = styled.button`
 		opacity: 0.6;
 	}
 `;
+
+export const ButtonOut = styled.button`
+	background-color: transparent;
+	border: 1px solid #b85c5c;
+	border-radius: 5px;
+	outline: none;
+	color: #b85c5c;
+	padding: 10px 20px;
+	font-size: 20px;
+	align-self: flex-start;
+	&:disabled {
+		opacity: 0.6;
+	}
+`;

@@ -6,7 +6,8 @@ const initialState = { email: '', username: '', token: '', loading: false };
 
 const tokenToCookeis = (token: string) => {
 	let date = new Date(Date.now() + 86400e3).toUTCString();
-	document.cookie = `token=${token}; expires=${date}`;
+	console.log(token);
+	document.cookie = `token=${token};path=/; expires=${date}`;
 };
 
 export default (state: types.User = initialState, action: UserActions) => {

@@ -1,7 +1,8 @@
 import React, { FormEvent } from 'react';
 import { Redirect } from 'react-router-dom';
-import { FormWrapper, Form, Input, TextArea, Title, Button } from './SettingsStyles';
+import { FormWrapper, Form, Input, TextArea, Title, Button, ButtonOut } from './SettingsStyles';
 import { User } from '../../types';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
 	user: User;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 const Settings = ({ user, update }: Props) => {
+	const history = useHistory();
 	if (!user.token) return <Redirect to="/login" />;
 	const image = (document.getElementById('Settings__URL') as HTMLInputElement)?.value;
 	const username = (document.getElementById('Settings__Username') as HTMLInputElement)?.value;
@@ -24,6 +26,15 @@ const Settings = ({ user, update }: Props) => {
 		update(updatedUser, user.token);
 	};
 
+	const handleSingOut = (event: React.MouseEvent) => {
+		event.stopPropagation();
+		event.preventDefault();
+		console.log(123);
+		document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		console.log(document.cookie);
+		history.go(0);
+	};
+
 	return (
 		<FormWrapper>
 			<Form onSubmit={handleUpdateUser}>
@@ -36,6 +47,7 @@ const Settings = ({ user, update }: Props) => {
 				<Input id="Settings__Email" type="email" placeholder="Email" defaultValue={user.email} />
 				<Input id="Settings__Password" type="password" placeholder="Password" />
 				<Button type="submit">Update settings</Button>
+				<ButtonOut onClick={handleSingOut}>Sing out</ButtonOut>
 			</Form>
 		</FormWrapper>
 	);

@@ -39,8 +39,15 @@ const Register = ({ register, user }: Props) => {
 					<Link to="/login">Have an account?</Link>
 				</Title>
 				<Input onChange={handlerChande} id="Login__Username" type="text" placeholder="Username" required />
-				<Input onChange={handlerChande} id="Login__Email" type="email" placeholder="Email" required />
-				<Input onChange={handlerChande} id="Login__Password" type="password" placeholder="Password" required />
+				<Input onChange={handlerChande} autoComplete="email" id="Login__Email" type="email" placeholder="Email" required />
+				<Input
+					onChange={handlerChande}
+					autoComplete="new-password"
+					id="Login__Password"
+					type="password"
+					placeholder="Password"
+					required
+				/>
 				<Button type="submit" disabled={active}>
 					Sign up
 				</Button>
