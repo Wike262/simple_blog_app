@@ -25,9 +25,9 @@ const Register = ({ register, user }: Props) => {
 
 	const handleLogin = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		let username = (document.getElementById('Login__Username') as HTMLInputElement).value;
-		let email = (document.getElementById('Login__Email') as HTMLInputElement).value;
-		let password = (document.getElementById('Login__Password') as HTMLInputElement).value;
+		const username = (document.getElementById('Login__Username') as HTMLInputElement).value;
+		const email = (document.getElementById('Login__Email') as HTMLInputElement).value;
+		const password = (document.getElementById('Login__Password') as HTMLInputElement).value;
 		register(username, email, password);
 	};
 

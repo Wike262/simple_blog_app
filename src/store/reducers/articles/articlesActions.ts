@@ -27,6 +27,16 @@ export const receive = (articles: any): types.ReceiveArticles => {
 	};
 };
 
+export const add = (articles: any): types.ReceiveArticles => {
+	return {
+		type: consts.RECEIVE_ARTICLES,
+		payload: {
+			loading: false,
+			articles: [articles.article],
+		},
+	};
+};
+
 export const receiveError = (error: any): types.FetchErrorArticles => ({
 	type: consts.RECEIVE_ERROR_ARTICLES,
 	payload: {
@@ -56,6 +66,25 @@ export const getArticles = () => (dispatch: ThunkDispatch<{}, {}, any>) => {
 			onSuccess: receive,
 			onFailure: receiveError,
 			label: 'GET_ARTICLES',
+		})
+	);
+};
+
+export const addArticle = (title: string, token: string, description?: string, body?: string, tagList?: string[]) => (
+	dispatch: ThunkDispatch<{}, {}, any>
+) => {
+	const slug = `${title}+${Math.random().toString(36).substring(2, 15)}`;
+	const req = { article: { slug, title, description, body, tagList: [...tagList!] } };
+	dispatch(request());
+	return dispatch(
+		apiAction({
+			url: '/articles',
+			method: 'POST',
+			onSuccess: add,
+			onFailure: receiveError,
+			label: 'ADD_ARTICLE',
+			token,
+			data: JSON.stringify(req),
 		})
 	);
 };

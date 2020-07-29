@@ -62,6 +62,13 @@ export interface ReceiveArticles {
 		articles: Array<Article>;
 	};
 }
+export interface AddArticles {
+	type: consts.RECEIVE_ARTICLES;
+	payload: {
+		loading: boolean;
+		articles: Array<Article>;
+	};
+}
 
 export interface FetchErrorArticles {
 	type: consts.RECEIVE_ERROR_ARTICLES;

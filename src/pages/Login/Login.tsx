@@ -23,8 +23,8 @@ const Login = ({ login, user }: Props) => {
 
 	const handleLogin = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		let email = (document.getElementById('Login__Email') as HTMLInputElement).value;
-		let password = (document.getElementById('Login__Password') as HTMLInputElement).value;
+		const email = (document.getElementById('Login__Email') as HTMLInputElement).value;
+		const password = (document.getElementById('Login__Password') as HTMLInputElement).value;
 		if (email) login(email, password);
 	};
 

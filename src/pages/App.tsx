@@ -10,6 +10,7 @@ import Login from '../containers/UserContainers/Login';
 import Register from '../containers/UserContainers/Register';
 import Home from '../containers/ArticlesContainers/HomePage';
 import SingleArticle from '../containers/ArticlesContainers/SingeArticlePage';
+import ArticleCreate from '../containers/ArticlesContainers/ArticleCreate';
 
 import { Page } from './AppStyles';
 
@@ -54,6 +55,7 @@ class App extends React.Component<Props> {
 							<Row>
 								<Route path="/login" component={Login} />
 								<Route path="/register" component={Register} />
+								<Route path="/article-create" component={ArticleCreate} />
 							</Row>
 						</Container>
 					</Page>
