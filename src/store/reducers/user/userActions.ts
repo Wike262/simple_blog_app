@@ -73,3 +73,20 @@ export const register = (username: string, email: string, password: string) => (
 		})
 	);
 };
+
+export const updateUser = (user: types.User, token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
+	const req = { user };
+
+	dispatch(request());
+	return dispatch(
+		apiAction({
+			url: '/user',
+			method: 'PUT',
+			onSuccess: receive,
+			onFailure: receiveError,
+			token,
+			label: 'UPDATE_USER',
+			data: JSON.stringify(req),
+		})
+	);
+};

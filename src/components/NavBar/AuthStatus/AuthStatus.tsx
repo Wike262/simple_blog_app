@@ -18,7 +18,7 @@ const AuthStatus = ({ user }: Props) => {
 					<NavLink to="/article-create">New Article</NavLink>{' '}
 				</NavItem>
 				<NavItem>
-					<NavLink to="/setting">Setting</NavLink>{' '}
+					<NavLink to="/settings">Setting</NavLink>{' '}
 				</NavItem>
 				<NavItem>
 					<NavLink to={`/profile/${user.username}`}>{user.username}</NavLink>{' '}

@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 
@@ -11,10 +9,9 @@ import Register from '../containers/UserContainers/Register';
 import Home from '../containers/ArticlesContainers/HomePage';
 import SingleArticle from '../containers/ArticlesContainers/SingeArticlePage';
 import ArticleCreate from '../containers/ArticlesContainers/ArticleCreate';
+import Settings from '../containers/UserContainers/Settings';
 
 import { Page } from './AppStyles';
-
-import { loginWithToken } from '../store/reducers/user/userActions';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -56,6 +53,7 @@ class App extends React.Component<Props> {
 								<Route path="/login" component={Login} />
 								<Route path="/register" component={Register} />
 								<Route path="/article-create" component={ArticleCreate} />
+								<Route path="/settings" component={Settings} />
 							</Row>
 						</Container>
 					</Page>
@@ -65,8 +63,4 @@ class App extends React.Component<Props> {
 	}
 }
 
-const dispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
-	login: (token: string) => dispatch(loginWithToken(token)),
-});
-
-export default connect(null, dispatchToProps)(App);
+export default App;
