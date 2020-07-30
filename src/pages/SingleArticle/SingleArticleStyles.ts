@@ -65,3 +65,41 @@ export const ArticleContent = styled.div`
 	border-bottom: 1px solid #e5e5e5;
 	margin-bottom: 10px;
 `;
+
+interface ButtonActive {
+	readonly active: boolean;
+}
+
+export const FavoriteButton = styled.button<ButtonActive>`
+	background-color: ${(active) => (active.active ? '#5cb85c' : 'transparent')};
+	border: none;
+	border-radius: 5px;
+	display: flex;
+	margin-left: 10px;
+	align-self: center;
+	justify-content: center;
+	align-items: center;
+	padding: 2px 6px;
+	font-size: 14px;
+	color: ${(active) => (active.active ? '#fff' : '#5cb85c')};
+	& svg {
+		margin-right: 5px;
+	}
+`;
+
+export const FollowingButton = styled.button<ButtonActive>`
+	background-color: ${(active) => (active.active ? '#fff' : '#fff')};
+	border: none;
+	border-radius: 5px;
+	display: flex;
+	margin-left: 10px;
+	align-self: center;
+	justify-content: center;
+	align-items: center;
+	padding: 2px 6px;
+	font-size: 14px;
+	color: ${(active) => (active.active ? '#000' : '#gray')};
+	& svg {
+		margin-right: 5px;
+	}
+`;

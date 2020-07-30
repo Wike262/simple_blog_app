@@ -42,6 +42,37 @@ export const receiveError = (error: any): types.FetchErrorUser => ({
 	},
 });
 
+export const addToFavorite = (articleSlug: string) => (articles: any): types.AddArticleToFavorite => {
+	return {
+		type: consts.ADD_ARTICLE_TO_FAVORITE,
+		payload: {
+			loading: false,
+			articles: articles.article,
+			articleSlug,
+		},
+	};
+};
+
+export const removeFromFavorite = (articleSlug: string) => (articles: any): types.RemoveArticleFroFavorite => {
+	return {
+		type: consts.REMOVE_ARTICLE_FROM_FAVORITE,
+		payload: {
+			loading: false,
+			articles: articles.article,
+			articleSlug,
+		},
+	};
+};
+
+export const follow = (user: types.User): types.FollowUser => {
+	return {
+		type: consts.FOLLOW_USER,
+		payload: {
+			user,
+		},
+	};
+};
+
 export const loginWithToken = (token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
 	dispatch(request());
 	return dispatch(
@@ -106,28 +137,6 @@ export const updateUser = (user: types.User, token: string) => (dispatch: ThunkD
 	);
 };
 
-export const addToFavorite = (articleSlug: string) => (articles: any): types.AddArticleToFavorite => {
-	return {
-		type: consts.ADD_ARTICLE_TO_FAVORITE,
-		payload: {
-			loading: false,
-			articles: articles.article,
-			articleSlug,
-		},
-	};
-};
-
-export const removeFromFavorite = (articleSlug: string) => (articles: any): types.RemoveArticleFroFavorite => {
-	return {
-		type: consts.REMOVE_ARTICLE_FROM_FAVORITE,
-		payload: {
-			loading: false,
-			articles: articles.article,
-			articleSlug,
-		},
-	};
-};
-
 export const addArticleToFavorite = (articleSlug: string, token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
 	dispatch(request());
 	return dispatch(
@@ -153,6 +162,34 @@ export const removeArticleFromFavoritre = (articleSlug: string, token: string) =
 			onSuccess: removeFromFavorite(articleSlug),
 			onFailure: receiveError,
 			label: 'DELETE_ARTICLE_TO_FAVORITE',
+			token,
+		})
+	);
+};
+
+export const followUser = (username: string, token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
+	dispatch(request());
+	return dispatch(
+		apiAction({
+			url: `/profiles/${username}/follow`,
+			method: 'POST',
+			onSuccess: follow,
+			onFailure: receiveError,
+			label: 'FOLLOW_USER',
+			token,
+		})
+	);
+};
+
+export const unFollowUser = (username: string, token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
+	dispatch(request());
+	return dispatch(
+		apiAction({
+			url: `/profiles/${username}/follow`,
+			method: 'DELETE',
+			onSuccess: follow,
+			onFailure: receiveError,
+			label: 'UNFOLLOW_USER',
 			token,
 		})
 	);

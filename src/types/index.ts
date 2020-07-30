@@ -151,3 +151,10 @@ export interface SetFavoriteArticles {
 		favorite: Array<Article>;
 	};
 }
+
+export interface FollowUser {
+	type: consts.FOLLOW_USER;
+	payload: {
+		user: User;
+	};
+}

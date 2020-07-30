@@ -12,7 +12,11 @@ import {
 	ArticleTitle,
 	ArticleContent,
 	CommentsWrapper,
+	FavoriteButton,
+	FollowingButton,
 } from './SingleArticleStyles';
+import { MdFavorite } from 'react-icons/md';
+
 import AddComment from '../../containers/ArticlesContainers/AddComment';
 import Comments from '../../containers/ArticlesContainers/Comments';
 import * as types from '../../types';
@@ -21,13 +25,39 @@ interface Props {
 	article: types.Article;
 	user: types.User;
 	setComments: Function;
+	favorited: Function;
+	unFavorite: Function;
+	follow: Function;
+	unFollow: Function;
 }
 
-const Article = ({ article, user, setComments }: Props) => {
+const Article = ({ article, user, setComments, favorited, unFavorite, follow, unFollow }: Props) => {
 	React.useEffect(() => {
 		if (article.comments === undefined) setComments(article.slug);
 	});
 	const date = new Date(Date.parse(article.updatedAt.toString())).toDateString();
+	let favoriteByUser = user.favorites?.find((item) => item?.slug === article.slug);
+
+	const handleFavorite = () => {
+		if (favoriteByUser === undefined) {
+			article.favoritesCount++;
+			favorited(user.token, article.slug);
+		} else {
+			article.favoritesCount--;
+			unFavorite(user.token, article.slug);
+		}
+	};
+
+	const handleFollow = () => {
+		if (!article.author.following) {
+			article.author.following = true;
+			follow(article.author.username, user.token);
+		} else {
+			article.author.following = false;
+			unFollow(article.author.username, user.token);
+		}
+	};
+
 	return (
 		<>
 			<ArticleBanner>
@@ -42,6 +72,16 @@ const Article = ({ article, user, setComments }: Props) => {
 								<Link to={`/profiles/${article.author.username}`}>{article.author.username}</Link>
 								<p>{date}</p>
 							</Info>
+							<FollowingButton active={article.author.following} onClick={handleFollow}>
+								<MdFavorite />
+								{article.author.following ? `Unfollow ${article.author.username}` : `Follow ${article.author.username}`}
+							</FollowingButton>
+							<FavoriteButton active={favoriteByUser !== undefined ? true : false} onClick={handleFavorite}>
+								<MdFavorite />
+								{console.log(favoriteByUser)}
+								{favoriteByUser !== undefined ? 'Unfavorite Article' : 'Favortie Article'}
+								{article.favoritesCount}
+							</FavoriteButton>
 						</ArticleMeta>
 					</Row>
 				</Container>
