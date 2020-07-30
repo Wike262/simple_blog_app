@@ -38,7 +38,6 @@ function getCookie(name: string) {
 
 class App extends React.Component<Props> {
 	componentDidMount = () => {
-		console.log(getCookie('token'));
 		if (getCookie('token')) return this.props.login(getCookie('token'));
 	};
 

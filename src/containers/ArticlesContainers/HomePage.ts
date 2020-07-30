@@ -6,13 +6,13 @@ import { getArticles, getArticlesFeed } from '../../store/reducers/articles/arti
 import { StoreState } from '../../types';
 
 const dispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
-	articles: () => dispatch(getArticles()),
-	articlesFeed: (token: string) => dispatch(getArticlesFeed(token)),
+	setArticles: (token: string) => dispatch(getArticles(token)),
+	setArticlesFeed: (token: string) => dispatch(getArticlesFeed(token)),
 });
 
 const stateToProps = (state: StoreState) => {
 	return {
-		user: state.user,
+		userToken: state.user.token,
 	};
 };
 

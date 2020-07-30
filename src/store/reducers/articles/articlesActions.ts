@@ -2,6 +2,7 @@ import * as consts from '../../../constans';
 import * as types from '../../../types';
 import { ThunkDispatch } from 'redux-thunk';
 import { apiAction } from '../../../middleware/apiActions';
+import { setFavoriteArticles } from '../user/userActions';
 
 export type ArticlesActions =
 	| types.RequestArticles
@@ -37,6 +38,17 @@ export const add = (articles: any): types.ReceiveArticles => {
 	};
 };
 
+export const favorite = (articleSlug: string) => (articles: any): types.AddArticleToFavorite => {
+	return {
+		type: consts.ADD_ARTICLE_TO_FAVORITE,
+		payload: {
+			loading: false,
+			articles: articles.article,
+			articleSlug,
+		},
+	};
+};
+
 export const receiveError = (error: any): types.FetchErrorArticles => ({
 	type: consts.RECEIVE_ERROR_ARTICLES,
 	payload: {
@@ -51,6 +63,7 @@ export const getArticlesFeed = (token: string) => (dispatch: ThunkDispatch<{}, {
 		apiAction({
 			url: '/articles/feed',
 			onSuccess: receive,
+			onSuccessHandler: setFavoriteArticles,
 			onFailure: receiveError,
 			label: 'GET_ARTICLES_FEED',
 			token,
@@ -58,14 +71,16 @@ export const getArticlesFeed = (token: string) => (dispatch: ThunkDispatch<{}, {
 	);
 };
 
-export const getArticles = () => (dispatch: ThunkDispatch<{}, {}, any>) => {
+export const getArticles = (token?: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
 	dispatch(request());
 	return dispatch(
 		apiAction({
 			url: '/articles',
 			onSuccess: receive,
+			onSuccessHandler: setFavoriteArticles,
 			onFailure: receiveError,
 			label: 'GET_ARTICLES',
+			token,
 		})
 	);
 };
@@ -76,6 +91,7 @@ export const getUserArticles = (username: string, token: string) => (dispatch: T
 		apiAction({
 			url: `/articles?author=${username}`,
 			onSuccess: receive,
+			onSuccessHandler: setFavoriteArticles,
 			onFailure: receiveError,
 			label: 'GET_USER_ARTICLES',
 			token,
@@ -83,11 +99,11 @@ export const getUserArticles = (username: string, token: string) => (dispatch: T
 	);
 };
 
-export const getUserFavoritedArticles = (token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
+export const getUserFavoritedArticles = (username: string, token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
 	dispatch(request());
 	return dispatch(
 		apiAction({
-			url: `/articles?favorited=true`,
+			url: `/articles?favorited=${username}`,
 			onSuccess: receive,
 			onFailure: receiveError,
 			label: 'GET_FAVORITED_USER_ARTICLES',

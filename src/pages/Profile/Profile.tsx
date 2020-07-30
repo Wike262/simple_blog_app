@@ -17,7 +17,7 @@ const Profile = ({ author, userArticles, userFavorite }: Props) => {
 	React.useEffect(() => {
 		if (activeFeed === 'My articles') {
 			userArticles(author.username, author.token);
-		} else userFavorite(author.token);
+		} else userFavorite(author.username, author.token);
 	});
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		const value = (event.target as HTMLButtonElement).innerHTML;

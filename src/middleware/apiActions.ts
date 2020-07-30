@@ -28,6 +28,7 @@ interface Props {
 	data?: any;
 	token?: string | null;
 	onSuccess?: Function;
+	onSuccessHandler?: Function;
 	onFailure?: Function;
 	label?: string;
 	headersOverride?: any;

@@ -15,7 +15,7 @@ const stateToProps = (state: StoreState, ownProps: any) => {
 
 const dispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
 	userArticles: (username: string, token: string) => dispatch(getUserArticles(username, token)),
-	userFavorite: (token: string) => dispatch(getUserFavoritedArticles(token)),
+	userFavorite: (username: string, token: string) => dispatch(getUserFavoritedArticles(username, token)),
 });
 
 export default connect(stateToProps, dispatchToProps)(Profile);

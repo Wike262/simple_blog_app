@@ -5,30 +5,28 @@ import { Redirect } from 'react-router-dom';
 import Articles from '../../containers/ArticlesContainers/ArticlesList';
 
 import { HelloBanner, Logotype, ArticlesChoose, ArticlesChooseButtons } from './HomeStyles';
-import { User } from '../../types';
 
 interface Props {
-	articles: Function;
-	articlesFeed: Function;
-	user: User;
+	userToken: string;
+	setArticles: Function;
+	setArticlesFeed: Function;
 }
 
-const Home = ({ articles, articlesFeed, user }: Props) => {
+const Home = ({ userToken, setArticles, setArticlesFeed }: Props) => {
 	React.useEffect(() => {
 		if (activeFeed === 'Your Feed') {
-			articlesFeed(user.token);
-		} else articles();
+			setArticlesFeed(userToken);
+		} else setArticles(userToken);
 	});
 	const [activeFeed, setActiveFeed] = React.useState('Global Feed');
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		const value = (event.target as HTMLButtonElement).innerHTML;
 		if (value === 'Your Feed') {
-			if (!user.token) return <Redirect to="/login" />;
+			if (!userToken) return <Redirect to="/login" />;
 		}
 		setActiveFeed(value);
 	};
-
 	return (
 		<>
 			<HelloBanner>

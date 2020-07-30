@@ -3,7 +3,13 @@ import * as types from '../../../types';
 import { ThunkDispatch } from 'redux-thunk';
 import { apiAction } from '../../../middleware/apiActions';
 
-export type UserActions = types.RequestUser | types.ReceiveUser | types.FetchErrorUser;
+export type UserActions =
+	| types.RequestUser
+	| types.ReceiveUser
+	| types.FetchErrorUser
+	| types.AddArticleToFavorite
+	| types.RemoveArticleFroFavorite
+	| types.SetFavoriteArticles;
 
 export const request = (): types.RequestUser => ({
 	type: consts.REQUEST_USER,
@@ -18,6 +24,15 @@ export function receive(user: any) {
 		},
 	};
 }
+
+export const setFavoriteArticles = (articles: Array<types.Article>) => {
+	return {
+		type: consts.SET_FAVORITE_ARTICLES,
+		payload: {
+			favotire: articles,
+		},
+	};
+};
 
 export const receiveError = (error: any): types.FetchErrorUser => ({
 	type: consts.RECEIVE_ERROR_USER,
@@ -87,6 +102,58 @@ export const updateUser = (user: types.User, token: string) => (dispatch: ThunkD
 			token,
 			label: 'UPDATE_USER',
 			data: JSON.stringify(req),
+		})
+	);
+};
+
+export const addToFavorite = (articleSlug: string) => (articles: any): types.AddArticleToFavorite => {
+	return {
+		type: consts.ADD_ARTICLE_TO_FAVORITE,
+		payload: {
+			loading: false,
+			articles: articles.article,
+			articleSlug,
+		},
+	};
+};
+
+export const removeFromFavorite = (articleSlug: string) => (articles: any): types.RemoveArticleFroFavorite => {
+	return {
+		type: consts.REMOVE_ARTICLE_FROM_FAVORITE,
+		payload: {
+			loading: false,
+			articles: articles.article,
+			articleSlug,
+		},
+	};
+};
+
+export const addArticleToFavorite = (articleSlug: string, token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
+	dispatch(request());
+	return dispatch(
+		apiAction({
+			url: `/articles/${articleSlug}/favorite`,
+			method: 'POST',
+			onSuccess: addToFavorite(articleSlug),
+			onFailure: receiveError,
+			label: 'ADD_ARTICLE_TO_FAVORITE',
+			token,
+		})
+	);
+};
+
+export const removeArticleFromFavoritre = (articleSlug: string, token: string) => (
+	dispatch: ThunkDispatch<{}, {}, any>
+) => {
+	dispatch(request());
+	return dispatch(
+		apiAction({
+			url: `/articles/${articleSlug}/favorite`,
+			method: 'DELETE',
+			onSuccess: removeFromFavorite(articleSlug),
+			onFailure: receiveError,
+			label: 'DELETE_ARTICLE_TO_FAVORITE',
+			token,
 		})
 	);
 };

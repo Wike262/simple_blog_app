@@ -5,9 +5,10 @@ export interface User {
 	username: string;
 	email: string;
 	token: string;
+	loading: boolean;
 	image?: string;
 	bio?: string;
-	loading: boolean;
+	favorites?: Array<Article>;
 }
 
 export interface Article {
@@ -27,10 +28,14 @@ export interface Comment {
 	author: User;
 	createdAt: Date;
 }
+export interface ArticlesState {
+	articles: Array<Article>;
+	loading: false;
+}
 
 export interface StoreState {
 	user: User;
-	articles: { articles: Array<Article>; loading: false };
+	articles: ArticlesState;
 }
 
 export interface RequestUser {
@@ -64,6 +69,25 @@ export interface ReceiveArticles {
 		articles: Array<Article>;
 	};
 }
+
+export interface AddArticleToFavorite {
+	type: consts.ADD_ARTICLE_TO_FAVORITE;
+	payload: {
+		loading: boolean;
+		articles: Article;
+		articleSlug: string;
+	};
+}
+
+export interface RemoveArticleFroFavorite {
+	type: consts.REMOVE_ARTICLE_FROM_FAVORITE;
+	payload: {
+		loading: boolean;
+		articles: Article;
+		articleSlug: string;
+	};
+}
+
 export interface AddArticles {
 	type: consts.RECEIVE_ARTICLES;
 	payload: {
@@ -118,5 +142,12 @@ export interface RemoveArticlesComments {
 		articleSlug: string;
 		commentId: string;
 		loading: boolean;
+	};
+}
+
+export interface SetFavoriteArticles {
+	type: consts.SET_FAVORITE_ARTICLES;
+	payload: {
+		favorite: Array<Article>;
 	};
 }

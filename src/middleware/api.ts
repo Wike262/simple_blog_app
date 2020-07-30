@@ -8,7 +8,6 @@ interface Props {
 
 const apiMiddleware = ({ dispatch }: any) => (next: Function) => (action: any) => {
 	next(action);
-
 	if (action.type !== 'API') return;
 
 	const { url, method, data, token, onSuccess, onFailer, label, headers } = action.payload;
