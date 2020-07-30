@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const WrapperArticle = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 700px;
 	border-top: 1px solid gray;
 	padding: 15px;
 `;

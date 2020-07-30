@@ -55,3 +55,22 @@ export const Button = styled.button`
 		opacity: 0.6;
 	}
 `;
+
+export const TagList = styled.ul`
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	display: flex;
+	flex-wrap: wrap;
+	float: right;
+	width: 550px;
+`;
+
+export const Tag = styled.li`
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	margin: 5px;
+	color: #aaa;
+	font-size: 12px;
+	padding: 2px 4px;
+`;

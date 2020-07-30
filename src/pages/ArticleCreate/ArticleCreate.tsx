@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { FormWrapper, Form, Input, Button, TextArea } from './ArticleCreateStyles';
+import { FormWrapper, Form, Input, Button, TextArea, TagList, Tag } from './ArticleCreateStyles';
 import { User, Article } from '../../types';
 
 interface Props {
@@ -32,7 +32,7 @@ const ArticleCreate = ({ articles, user, create }: Props) => {
 		if (event.key === 'Enter') {
 			event.preventDefault();
 			const tag = (document.getElementById('Article__Tags') as HTMLInputElement).value;
-			setTag([...tags, tag]);
+			if (!tags.find((item) => tag === item)) setTag([...tags, tag]);
 		}
 	};
 
@@ -43,6 +43,12 @@ const ArticleCreate = ({ articles, user, create }: Props) => {
 				<Input id="Article__Description" type="text" placeholder="Article Desctription" required />
 				<TextArea id="Article__Body" placeholder="Write your article" required />
 				<Input onKeyDown={handleEnterPress} id="Article__Tags" type="text" placeholder="Enter Tags" />
+				<TagList>
+					{tags?.map((tag: string) => {
+						return <Tag key={tag + Math.random()}>{tag}</Tag>;
+					})}
+				</TagList>
+
 				<Button type="submit">Publish Article</Button>
 			</Form>
 		</FormWrapper>

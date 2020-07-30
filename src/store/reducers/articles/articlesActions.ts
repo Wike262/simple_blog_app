@@ -130,3 +130,16 @@ export const addArticle = (title: string, token: string, description?: string, b
 		})
 	);
 };
+
+export const getArticlesByTag = (tag: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
+	dispatch(request());
+	return dispatch(
+		apiAction({
+			url: `/articles?tag=${tag}`,
+			method: 'GET',
+			onSuccess: receive,
+			onFailure: receiveError,
+			label: 'ARTICLES_BY_TAG',
+		})
+	);
+};

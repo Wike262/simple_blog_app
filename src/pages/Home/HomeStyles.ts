@@ -37,3 +37,24 @@ export const ArticlesChooseButtons = styled.button`
 		outline: none;
 	}
 `;
+
+export const TagListWrapper = styled.div`
+	background-color: #f3f3f3;
+`;
+
+export const TagList = styled.ul`
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	display: flex;
+	flex-wrap: wrap;
+`;
+
+export const Tag = styled.li`
+	background-color: #818a91;
+	color: #fff;
+	border-radius: 10px;
+	margin: 5px;
+	font-size: 12px;
+	padding: 2px 4px;
+`;
