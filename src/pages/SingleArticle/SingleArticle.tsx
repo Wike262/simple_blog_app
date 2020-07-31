@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 
 import {
@@ -14,6 +14,8 @@ import {
 	CommentsWrapper,
 	FavoriteButton,
 	FollowingButton,
+	DeleteButton,
+	EditButton,
 } from './SingleArticleStyles';
 import { MdFavorite } from 'react-icons/md';
 
@@ -29,9 +31,11 @@ interface Props {
 	unFavorite: Function;
 	follow: Function;
 	unFollow: Function;
+	remove: Function;
 }
 
-const Article = ({ article, user, setComments, favorited, unFavorite, follow, unFollow }: Props) => {
+const Article = ({ article, user, setComments, favorited, unFavorite, follow, unFollow, remove }: Props) => {
+	const history = useHistory();
 	React.useEffect(() => {
 		if (article.comments === undefined) setComments(article.slug);
 	});
@@ -58,6 +62,11 @@ const Article = ({ article, user, setComments, favorited, unFavorite, follow, un
 		}
 	};
 
+	const handleDelete = () => {
+		remove(article.slug, user.token);
+		history.goBack();
+	};
+
 	return (
 		<>
 			<ArticleBanner>
@@ -72,16 +81,25 @@ const Article = ({ article, user, setComments, favorited, unFavorite, follow, un
 								<Link to={`/profiles/${article.author.username}`}>{article.author.username}</Link>
 								<p>{date}</p>
 							</Info>
-							<FollowingButton active={article.author.following} onClick={handleFollow}>
-								<MdFavorite />
-								{article.author.following ? `Unfollow ${article.author.username}` : `Follow ${article.author.username}`}
-							</FollowingButton>
-							<FavoriteButton active={favoriteByUser !== undefined ? true : false} onClick={handleFavorite}>
-								<MdFavorite />
-								{console.log(favoriteByUser)}
-								{favoriteByUser !== undefined ? 'Unfavorite Article' : 'Favortie Article'}
-								{article.favoritesCount}
-							</FavoriteButton>
+							{article.author.username === user.username ? (
+								<DeleteButton onClick={handleDelete}>Delete Article </DeleteButton>
+							) : (
+								<FollowingButton active={article.author.following} onClick={handleFollow}>
+									<MdFavorite />
+									{article.author.following ? `Unfollow ${article.author.username}` : `Follow ${article.author.username}`}
+								</FollowingButton>
+							)}
+							{article.author.username === user.username ? (
+								<EditButton>
+									<Link to={{ pathname: '/article-create', state: { article } }}>Edit Article </Link>
+								</EditButton>
+							) : (
+								<FavoriteButton active={favoriteByUser !== undefined ? true : false} onClick={handleFavorite}>
+									<MdFavorite />
+									{favoriteByUser !== undefined ? 'Unfavorite Article ' : 'Favortie Article '}
+									{article.favoritesCount}
+								</FavoriteButton>
+							)}
 						</ArticleMeta>
 					</Row>
 				</Container>
@@ -90,7 +108,7 @@ const Article = ({ article, user, setComments, favorited, unFavorite, follow, un
 				<Row>
 					<WrapperArticle>
 						<ArticleContent>
-							<p>{article.description}</p>
+							<p>{article.body}</p>
 							<TagList></TagList>
 						</ArticleContent>
 						<CommentsWrapper>

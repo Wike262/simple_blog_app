@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 import Articles from '../../containers/ArticlesContainers/ArticlesList';
 
@@ -31,15 +31,17 @@ const Profile = ({ author, userArticles, userFavorite }: Props) => {
 			</ProfileBanner>
 			<Container>
 				<Row>
-					<ArticlesChoose>
-						<ArticlesChooseButtons onClick={handleClick} active={activeFeed === 'My articles' ? true : false}>
-							My articles
-						</ArticlesChooseButtons>
-						<ArticlesChooseButtons onClick={handleClick} active={activeFeed === 'Favorited articles' ? true : false}>
-							Favorited articles
-						</ArticlesChooseButtons>
-					</ArticlesChoose>
-					<Articles />
+					<Col md={12}>
+						<ArticlesChoose>
+							<ArticlesChooseButtons onClick={handleClick} active={activeFeed === 'My articles' ? true : false}>
+								My articles
+							</ArticlesChooseButtons>
+							<ArticlesChooseButtons onClick={handleClick} active={activeFeed === 'Favorited articles' ? true : false}>
+								Favorited articles
+							</ArticlesChooseButtons>
+						</ArticlesChoose>
+						<Articles />
+					</Col>
 				</Row>
 			</Container>
 		</>

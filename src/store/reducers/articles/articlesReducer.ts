@@ -3,7 +3,7 @@ import * as types from '../../../types';
 import { ArticlesActions } from './articlesActions';
 import commentsReducer from './comments/commentsReducer';
 
-const initialState: any = { articles: [], loading: false };
+const initialState = { articles: [], loading: false };
 
 export default (
 	state: { articles: Array<types.Article>; loading: boolean } = initialState,
@@ -13,7 +13,12 @@ export default (
 		case consts.REQUEST_ARTICLES:
 			return { ...state, loading: true };
 		case consts.RECEIVE_ARTICLES:
-			return { ...state, articles: action.payload.articles, loading: false };
+			return {
+				...state,
+				articles: action.payload.articles,
+				articlesCount: action.payload.articlesCount,
+				loading: false,
+			};
 		case consts.RECEIVE_ERROR_ARTICLES:
 			return { ...state, loading: false, error: action.payload.error };
 		case consts.REQUEST_ARTICLES_COMMENTS:

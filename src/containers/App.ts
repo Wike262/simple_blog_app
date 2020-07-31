@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { ThunkDispatch } from 'redux-thunk';
-import { loginWithToken } from '../store/reducers/user/userActions';
+import { loginWithToken } from '../store/reducers/user/userUtils';
 import App from '../pages/App';
 
 const dispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({

@@ -29,9 +29,7 @@ const Settings = ({ user, update }: Props) => {
 	const handleSingOut = (event: React.MouseEvent) => {
 		event.stopPropagation();
 		event.preventDefault();
-		console.log(123);
 		document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-		console.log(document.cookie);
 		history.go(0);
 	};
 

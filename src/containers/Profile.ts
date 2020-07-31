@@ -1,13 +1,12 @@
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 
-import { getUserArticles, getUserFavoritedArticles } from '../store/reducers/articles/articlesActions';
+import { getUserArticles, getUserFavoritedArticles } from '../store/reducers/articles/articlesUtils';
 
 import Profile from '../pages/Profile/Profile';
 import { StoreState } from '../types';
 
 const stateToProps = (state: StoreState, ownProps: any) => {
-	console.log(ownProps);
 	return {
 		author: ownProps.location.state.author,
 	};

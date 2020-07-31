@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { register } from '../../store/reducers/user/userActions';
+import { register } from '../../store/reducers/user/userUtils';
 
 import Register from '../../pages/Register/Register';
+import { StoreState } from '../../types';
 
-const stateToProps = (state: any) => {
+const stateToProps = (state: StoreState) => {
 	return {
 		user: state.user,
 	};

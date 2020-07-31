@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import Home from '../../pages/Home/Home';
-import { getArticles, getArticlesFeed, getArticlesByTag } from '../../store/reducers/articles/articlesActions';
+import { getArticles, getArticlesFeed, getArticlesByTag } from '../../store/reducers/articles/articlesUtils';
 
 import { StoreState } from '../../types';
 

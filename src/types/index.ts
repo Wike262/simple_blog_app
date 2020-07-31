@@ -1,5 +1,4 @@
 import * as consts from '../constans';
-import { Tracing } from 'trace_events';
 
 export interface User {
 	username: string;
@@ -15,6 +14,7 @@ export interface Article {
 	slug: string;
 	title?: string;
 	description?: string;
+	body?: string;
 	updatedAt: Date;
 	tagList: [];
 	favorited: boolean;
@@ -24,12 +24,15 @@ export interface Article {
 }
 
 export interface Comment {
-	message: string;
+	body: string;
 	author: User;
+	id: string;
 	createdAt: Date;
 }
+
 export interface ArticlesState {
 	articles: Array<Article>;
+	articlesCount: number;
 	loading: false;
 }
 
@@ -67,6 +70,14 @@ export interface ReceiveArticles {
 	payload: {
 		loading: boolean;
 		articles: Array<Article>;
+		articlesCount: number;
+	};
+}
+
+export interface DeleteArticle {
+	type: consts.DELETE_ARTICLE;
+	payload: {
+		loading: boolean;
 	};
 }
 

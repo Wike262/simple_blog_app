@@ -1,7 +1,5 @@
 import * as consts from '../../../../constans';
 import * as types from '../../../../types';
-import { ThunkDispatch } from 'redux-thunk';
-import { apiAction } from '../../../../middleware/apiActions';
 
 export type CommentsActions =
 	| types.RequestArticlesComments
@@ -58,49 +56,3 @@ export const receiveError = (articleSlug: string) => (error: any): types.FetchEr
 		error,
 	},
 });
-
-export const getComments = (articleSlug: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
-	dispatch(request(articleSlug));
-	return dispatch(
-		apiAction({
-			url: `/articles/${articleSlug}/comments`,
-			onSuccess: receive(articleSlug),
-			onFailure: receiveError,
-			label: 'GET_ARTICLES_FEED',
-		})
-	);
-};
-
-export const deleteComment = (articleSlug: string, commentId: string, token: string) => (
-	dispatch: ThunkDispatch<{}, {}, any>
-) => {
-	dispatch(request(articleSlug));
-	return dispatch(
-		apiAction({
-			url: `/articles/${articleSlug}/comments/${commentId}`,
-			method: 'DELETE',
-			onSuccess: remove(articleSlug, commentId),
-			onFailure: receiveError,
-			label: 'DELETE_COMMENT',
-			token,
-		})
-	);
-};
-
-export const addComment = (articleSlug: string, message: string, token: string) => (
-	dispatch: ThunkDispatch<{}, {}, any>
-) => {
-	const req = { comment: { body: message } };
-	dispatch(request(articleSlug));
-	return dispatch(
-		apiAction({
-			url: `/articles/${articleSlug}/comments`,
-			method: 'POST',
-			onSuccess: add(articleSlug),
-			onFailure: receiveError,
-			label: 'ADD_ARTICLE_COMMENT',
-			data: JSON.stringify(req),
-			token,
-		})
-	);
-};

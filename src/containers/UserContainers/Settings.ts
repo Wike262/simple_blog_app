@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { updateUser } from '../../store/reducers/user/userActions';
+import { updateUser } from '../../store/reducers/user/userUtils';
 
 import Settings from '../../pages/Settings/Settings';
-import { User } from '../../types';
+import { User, StoreState } from '../../types';
 
-const stateToProps = (state: any) => {
+const stateToProps = (state: StoreState) => {
 	return {
 		user: state.user,
 	};

@@ -103,3 +103,40 @@ export const FollowingButton = styled.button<ButtonActive>`
 		margin-right: 5px;
 	}
 `;
+
+export const DeleteButton = styled.button`
+	background-color: #fff;
+	border: none;
+	border-radius: 5px;
+	display: flex;
+	margin-left: 10px;
+	align-self: center;
+	justify-content: center;
+	align-items: center;
+	padding: 2px 6px;
+	font-size: 14px;
+	color: #000;
+
+	& svg {
+		margin-right: 5px;
+	}
+`;
+
+export const EditButton = styled.div`
+	background-color: #5cb85c;
+	border: none;
+	border-radius: 5px;
+	display: flex;
+	margin-left: 10px;
+	align-self: center;
+	justify-content: center;
+	align-items: center;
+	padding: 2px 6px;
+	font-size: 14px;
+	& a {
+		color: #000;
+	}
+	& svg {
+		margin-right: 5px;
+	}
+`;

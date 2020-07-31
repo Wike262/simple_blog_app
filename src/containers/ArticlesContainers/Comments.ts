@@ -1,14 +1,18 @@
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import Comments from '../../components/Comments/Comments';
-import { deleteComment } from '../../store/reducers/articles/comments/commentsActions';
+import { deleteComment } from '../../store/reducers/articles/comments/commentsUtils';
 import { StoreState, Article } from '../../types';
 
 const getArticle = (articles: Array<Article>, slug: string) => {
 	return articles.find((item) => item.slug === slug)!;
 };
 
-const stateToProps = (state: StoreState, ownProps: any) => {
+interface ownProps {
+	article: string;
+}
+
+const stateToProps = (state: StoreState, ownProps: ownProps) => {
 	return {
 		comments: getArticle(state.articles.articles, ownProps.article)?.comments?.comments,
 		user: state.user,

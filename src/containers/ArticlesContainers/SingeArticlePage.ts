@@ -2,14 +2,14 @@ import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import SingleArticle from '../../pages/SingleArticle/SingleArticle';
 
-import { getArticles, getArticlesFeed } from '../../store/reducers/articles/articlesActions';
-import { getComments } from '../../store/reducers/articles/comments/commentsActions';
+import { getArticles, getArticlesFeed, deleteArticle } from '../../store/reducers/articles/articlesUtils';
+import { getComments } from '../../store/reducers/articles/comments/commentsUtils';
 import {
 	addArticleToFavorite,
 	removeArticleFromFavoritre,
 	followUser,
 	unFollowUser,
-} from '../../store/reducers/user/userActions';
+} from '../../store/reducers/user/userUtils';
 
 import { StoreState, Article } from '../../types';
 
@@ -21,6 +21,7 @@ const dispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
 	unFavorite: (articleSlug: string, token: string) => dispatch(removeArticleFromFavoritre(articleSlug, token)),
 	follow: (username: string, token: string) => dispatch(followUser(username, token)),
 	unFollow: (username: string, token: string) => dispatch(unFollowUser(username, token)),
+	remove: (articleSlug: string, token: string) => dispatch(deleteArticle(articleSlug, token)),
 });
 
 const getArticle = (articles: Array<Article>, slug: string) => {

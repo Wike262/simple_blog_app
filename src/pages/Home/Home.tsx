@@ -30,10 +30,10 @@ const Home = ({ userToken, setArticles, setArticlesFeed, setArticlesByTag }: Pro
 			fetch('http://localhost:3000/api/tags')
 				.then((response) => response.json())
 				.then((result) => {
-					console.log(result.tags);
 					setTags(result.tags);
 				});
 	});
+
 	const [activeFeed, setActiveFeed] = React.useState('Global Feed');
 	const [tags, setTags] = React.useState([]);
 
@@ -46,8 +46,10 @@ const Home = ({ userToken, setArticles, setArticlesFeed, setArticlesByTag }: Pro
 	};
 
 	const handleTagChange = (event: React.MouseEvent<HTMLLIElement>) => {
+		setActiveFeed('Global Feed');
 		setArticlesByTag((event.target as HTMLLIElement).innerHTML);
 	};
+
 	return (
 		<>
 			<HelloBanner>
@@ -68,20 +70,17 @@ const Home = ({ userToken, setArticles, setArticlesFeed, setArticlesByTag }: Pro
 					</Col>
 
 					<Col md={7}>
-						<Articles />
+						<Articles feed={activeFeed} />
 					</Col>
 					<Col md={5}>
 						<TagListWrapper>
 							<h4>Tags</h4>
 							<TagList>
-								{tags.map((tag: string) => {
-									console.log(tag);
-									return (
-										<Tag key={tag + Math.random()} onClick={handleTagChange}>
-											{tag}
-										</Tag>
-									);
-								})}
+								{tags.map((tag: string) => (
+									<Tag key={tag + Math.random()} onClick={handleTagChange}>
+										{tag}
+									</Tag>
+								))}
 							</TagList>
 						</TagListWrapper>
 					</Col>
