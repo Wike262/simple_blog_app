@@ -1,7 +1,6 @@
 import * as types from '../../../types';
 import { ThunkDispatch } from 'redux-thunk';
 import { apiAction } from '../../../middleware/apiActions';
-import { setFavoriteArticles } from '../user/userActions';
 import { request, receive, receiveError, remove, add } from './articlesActions';
 
 export const getArticlesFeed = (token: string, page?: number) => (dispatch: ThunkDispatch<{}, {}, any>) => {
@@ -10,8 +9,7 @@ export const getArticlesFeed = (token: string, page?: number) => (dispatch: Thun
 		apiAction({
 			url: `/articles/feed?offset=${page}`,
 			onSuccess: receive,
-			onSuccessHandler: setFavoriteArticles,
-			onFailure: receiveError,
+			onFailer: receiveError,
 			label: 'GET_ARTICLES_FEED',
 			token,
 		})
@@ -24,8 +22,7 @@ export const getArticles = (token?: string, page?: number) => (dispatch: ThunkDi
 		apiAction({
 			url: `/articles?offset=${page}`,
 			onSuccess: receive,
-			onSuccessHandler: setFavoriteArticles,
-			onFailure: receiveError,
+			onFailer: receiveError,
 			label: 'GET_ARTICLES',
 			token,
 		})
@@ -38,8 +35,7 @@ export const getUserArticles = (username: string, token: string) => (dispatch: T
 		apiAction({
 			url: `/articles?author=${username}`,
 			onSuccess: receive,
-			onSuccessHandler: setFavoriteArticles,
-			onFailure: receiveError,
+			onFailer: receiveError,
 			label: 'GET_USER_ARTICLES',
 			token,
 		})
@@ -52,7 +48,7 @@ export const getUserFavoritedArticles = (username: string, token: string) => (di
 		apiAction({
 			url: `/articles?favorited=${username}`,
 			onSuccess: receive,
-			onFailure: receiveError,
+			onFailer: receiveError,
 			label: 'GET_FAVORITED_USER_ARTICLES',
 			token,
 		})
@@ -68,7 +64,7 @@ export const addArticle = (article: types.Article, token: string) => (dispatch: 
 			url: '/articles',
 			method: 'POST',
 			onSuccess: add,
-			onFailure: receiveError,
+			onFailer: receiveError,
 			label: 'ADD_ARTICLE',
 			token,
 			data: JSON.stringify(req),
@@ -83,7 +79,7 @@ export const getArticlesByTag = (tag: string) => (dispatch: ThunkDispatch<{}, {}
 			url: `/articles?tag=${tag}`,
 			method: 'GET',
 			onSuccess: receive,
-			onFailure: receiveError,
+			onFailer: receiveError,
 			label: 'ARTICLES_BY_TAG',
 		})
 	);
@@ -96,7 +92,7 @@ export const deleteArticle = (articleSlug: string, token: string) => (dispatch: 
 			url: `/articles/${articleSlug}`,
 			method: 'DELETE',
 			onSuccess: remove,
-			onFailure: receiveError,
+			onFailer: receiveError,
 			token,
 			label: 'DELETE_ATTICLE',
 		})
@@ -111,7 +107,7 @@ export const updateArticle = (article: types.Article, token: string) => (dispatc
 			url: `/articles/${article.slug}`,
 			method: 'PUT',
 			onSuccess: add,
-			onFailure: receiveError,
+			onFailer: receiveError,
 			token,
 			label: 'UPDATE_ARTICLE',
 			data: JSON.stringify(req),

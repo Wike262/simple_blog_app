@@ -1,6 +1,6 @@
 import React, { FormEvent } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { FormWrapper, Form, Input, Title, Button } from './LoginStyles';
+import { FormWrapper, Form, Input, Title, Button, Error } from './LoginStyles';
 import { User } from '../../types';
 
 interface Props {
@@ -10,6 +10,7 @@ interface Props {
 
 const Login = ({ login, user }: Props) => {
 	const [active, setUnActive] = React.useState(true);
+	console.log(login, user.error);
 	if (user?.token) return <Redirect to="/" />;
 
 	const handlerChande = () => {
@@ -35,7 +36,7 @@ const Login = ({ login, user }: Props) => {
 					<h2>Sign in</h2>
 					<Link to="/register">Need an account?</Link>
 				</Title>
-
+				<Error>{user?.error ? `Email or password: ${Object.values(user.error)[0]}` : ''}</Error>
 				<Input onChange={handlerChande} autoComplete="email" id="Login__Email" type="email" placeholder="Email" required />
 				<Input
 					onChange={handlerChande}

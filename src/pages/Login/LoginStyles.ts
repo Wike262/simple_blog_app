@@ -49,3 +49,7 @@ export const Button = styled.button`
 		opacity: 0.6;
 	}
 `;
+
+export const Error = styled.p`
+	color: red;
+`;

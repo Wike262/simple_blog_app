@@ -55,7 +55,7 @@ export const getComments = (articleSlug: string) => (dispatch: ThunkDispatch<{},
 		apiAction({
 			url: `/articles/${articleSlug}/comments`,
 			onSuccess: receive(articleSlug),
-			onFailure: receiveError,
+			onFailer: receiveError,
 			label: 'GET_ARTICLES_FEED',
 		})
 	);
@@ -70,7 +70,7 @@ export const deleteComment = (articleSlug: string, commentId: string, token: str
 			url: `/articles/${articleSlug}/comments/${commentId}`,
 			method: 'DELETE',
 			onSuccess: remove(articleSlug, commentId),
-			onFailure: receiveError,
+			onFailer: receiveError,
 			label: 'DELETE_COMMENT',
 			token,
 		})
@@ -87,7 +87,7 @@ export const addComment = (articleSlug: string, message: string, token: string) 
 			url: `/articles/${articleSlug}/comments`,
 			method: 'POST',
 			onSuccess: add(articleSlug),
-			onFailure: receiveError,
+			onFailer: receiveError,
 			label: 'ADD_ARTICLE_COMMENT',
 			data: JSON.stringify(req),
 			token,

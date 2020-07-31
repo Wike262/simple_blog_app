@@ -15,38 +15,32 @@ export const request = (articleSlug: string) => (): types.RequestArticlesComment
 	},
 });
 
-export const receive = (articleSlug: string) => (comments: any): types.ReceiveArticlesComments => {
-	return {
-		type: consts.RECEIVE_ARTICLES_COMMENTS,
-		payload: {
-			articleSlug,
-			loading: false,
-			comments: comments.comments,
-		},
-	};
-};
+export const receive = (articleSlug: string) => (comments: any): types.ReceiveArticlesComments => ({
+	type: consts.RECEIVE_ARTICLES_COMMENTS,
+	payload: {
+		articleSlug,
+		loading: false,
+		comments: comments.comments,
+	},
+});
 
-export const add = (articleSlug: string) => (comment: any): types.AddArticlesComments => {
-	return {
-		type: consts.ADD_ARTICLES_COMMENT,
-		payload: {
-			articleSlug,
-			loading: false,
-			comments: comment.comment,
-		},
-	};
-};
+export const add = (articleSlug: string) => (comment: any): types.AddArticlesComments => ({
+	type: consts.ADD_ARTICLES_COMMENT,
+	payload: {
+		articleSlug,
+		loading: false,
+		comments: comment.comment,
+	},
+});
 
-export const remove = (articleSlug: string, commentId: string) => (comment: any): types.RemoveArticlesComments => {
-	return {
-		type: consts.REMOVE_ARTICLES_COMMENT,
-		payload: {
-			articleSlug,
-			commentId,
-			loading: false,
-		},
-	};
-};
+export const remove = (articleSlug: string, commentId: string) => (comment: any): types.RemoveArticlesComments => ({
+	type: consts.REMOVE_ARTICLES_COMMENT,
+	payload: {
+		articleSlug,
+		commentId,
+		loading: false,
+	},
+});
 
 export const receiveError = (articleSlug: string) => (error: any): types.FetchErrorArticlesComments => ({
 	type: consts.RECEIVE_ERROR_ARTICLES_COMMENTS,

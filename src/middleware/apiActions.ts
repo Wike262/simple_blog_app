@@ -28,8 +28,7 @@ interface Props {
 	data?: any;
 	token?: string | null;
 	onSuccess?: Function;
-	onSuccessHandler?: Function;
-	onFailure?: Function;
+	onFailer?: Function;
 	label?: string;
 	headersOverride?: any;
 }
@@ -40,7 +39,7 @@ export function apiAction({
 	data = null,
 	token = null,
 	onSuccess = () => {},
-	onFailure = () => {},
+	onFailer = () => {},
 	label = '',
 	headersOverride = null,
 }: Props) {
@@ -52,7 +51,7 @@ export function apiAction({
 			data,
 			token,
 			onSuccess,
-			onFailure,
+			onFailer,
 			label,
 			headersOverride,
 		},

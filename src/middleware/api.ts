@@ -19,19 +19,19 @@ const apiMiddleware = ({ dispatch }: any) => (next: Function) => (action: any) =
 	if (label) {
 		dispatch(apiStart(label));
 	}
+	console.log(onSuccess, onFailer);
 
 	fetch(`${baseUrl}${url}`, { method: method, headers: fetchHeaders, body: data })
 		.then((response) => {
-			if (response.statusText === 'OK') {
-				return response.json();
-			} else return response;
+			return response.json();
 		})
 		.then((data) => {
-			dispatch(onSuccess(data));
+			if (!data.errors) {
+				dispatch(onSuccess(data));
+			} else dispatch(onFailer(data.errors));
 		})
 		.catch((error) => {
 			dispatch(apiError(error));
-			dispatch(onFailer(error));
 		})
 		.finally(() => {
 			if (label) {

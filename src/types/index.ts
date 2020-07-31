@@ -8,6 +8,7 @@ export interface User {
 	image?: string;
 	bio?: string;
 	favorites?: Array<Article>;
+	error?: {};
 }
 
 export interface Article {
