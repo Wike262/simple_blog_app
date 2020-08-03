@@ -9,7 +9,7 @@ export const getArticlesFeed = (token: string, page?: number) => (dispatch: Thun
 		apiAction({
 			url: `/articles/feed?offset=${page}`,
 			onSuccess: receive,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'GET_ARTICLES_FEED',
 			token,
 		})
@@ -22,7 +22,7 @@ export const getArticles = (token?: string, page?: number) => (dispatch: ThunkDi
 		apiAction({
 			url: `/articles?offset=${page}`,
 			onSuccess: receive,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'GET_ARTICLES',
 			token,
 		})
@@ -35,21 +35,21 @@ export const getUserArticles = (username: string, token: string) => (dispatch: T
 		apiAction({
 			url: `/articles?author=${username}`,
 			onSuccess: receive,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'GET_USER_ARTICLES',
 			token,
 		})
 	);
 };
 
-export const getUserFavoritedArticles = (username: string, token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
+export const getUserFavoriteArticles = (username: string, token: string) => (dispatch: ThunkDispatch<{}, {}, any>) => {
 	dispatch(request());
 	return dispatch(
 		apiAction({
 			url: `/articles?favorited=${username}`,
 			onSuccess: receive,
-			onFailer: receiveError,
-			label: 'GET_FAVORITED_USER_ARTICLES',
+			onFailure: receiveError,
+			label: 'GET_FAVORITE_USER_ARTICLES',
 			token,
 		})
 	);
@@ -64,7 +64,7 @@ export const addArticle = (article: types.Article, token: string) => (dispatch: 
 			url: '/articles',
 			method: 'POST',
 			onSuccess: add,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'ADD_ARTICLE',
 			token,
 			data: JSON.stringify(req),
@@ -79,7 +79,7 @@ export const getArticlesByTag = (tag: string) => (dispatch: ThunkDispatch<{}, {}
 			url: `/articles?tag=${tag}`,
 			method: 'GET',
 			onSuccess: receive,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'ARTICLES_BY_TAG',
 		})
 	);
@@ -92,9 +92,9 @@ export const deleteArticle = (articleSlug: string, token: string) => (dispatch: 
 			url: `/articles/${articleSlug}`,
 			method: 'DELETE',
 			onSuccess: remove,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			token,
-			label: 'DELETE_ATTICLE',
+			label: 'DELETE_ARTICLE',
 		})
 	);
 };
@@ -107,7 +107,7 @@ export const updateArticle = (article: types.Article, token: string) => (dispatc
 			url: `/articles/${article.slug}`,
 			method: 'PUT',
 			onSuccess: add,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			token,
 			label: 'UPDATE_ARTICLE',
 			data: JSON.stringify(req),

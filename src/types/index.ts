@@ -1,5 +1,3 @@
-import * as consts from '../constans';
-
 export interface User {
 	username: string;
 	email: string;
@@ -16,10 +14,10 @@ export interface Article {
 	title?: string;
 	description?: string;
 	body?: string;
-	updatedAt: Date;
-	tagList: [];
-	favorited: boolean;
-	comments: { loading: false; comments: any };
+	updatedAt: number;
+	tagList: string[];
+	favorite: boolean;
+	comments: { loading: boolean; comments: any };
 	favoritesCount: number;
 	author: { username: string; image: string; following: boolean };
 }
@@ -40,133 +38,4 @@ export interface ArticlesState {
 export interface StoreState {
 	user: User;
 	articles: ArticlesState;
-}
-
-export interface RequestUser {
-	type: consts.REQUEST_USER;
-}
-
-export interface ReceiveUser {
-	type: consts.RECEIVE_USER;
-	payload: {
-		loading: boolean;
-		user: User;
-	};
-}
-
-export interface FetchErrorUser {
-	type: consts.RECEIVE_ERROR_USER;
-	payload: {
-		loading: boolean;
-		error: any;
-	};
-}
-
-export interface RequestArticles {
-	type: consts.REQUEST_ARTICLES;
-}
-
-export interface ReceiveArticles {
-	type: consts.RECEIVE_ARTICLES;
-	payload: {
-		loading: boolean;
-		articles: Array<Article>;
-		articlesCount: number;
-	};
-}
-
-export interface DeleteArticle {
-	type: consts.DELETE_ARTICLE;
-	payload: {
-		loading: boolean;
-	};
-}
-
-export interface AddArticleToFavorite {
-	type: consts.ADD_ARTICLE_TO_FAVORITE;
-	payload: {
-		loading: boolean;
-		articles: Article;
-		articleSlug: string;
-	};
-}
-
-export interface RemoveArticleFroFavorite {
-	type: consts.REMOVE_ARTICLE_FROM_FAVORITE;
-	payload: {
-		loading: boolean;
-		articles: Article;
-		articleSlug: string;
-	};
-}
-
-export interface AddArticles {
-	type: consts.RECEIVE_ARTICLES;
-	payload: {
-		loading: boolean;
-		articles: Array<Article>;
-	};
-}
-
-export interface FetchErrorArticles {
-	type: consts.RECEIVE_ERROR_ARTICLES;
-	payload: {
-		loading: boolean;
-		error: any;
-	};
-}
-
-export interface RequestArticlesComments {
-	type: consts.REQUEST_ARTICLES_COMMENTS;
-	payload: { articleSlug: string };
-}
-
-export interface ReceiveArticlesComments {
-	type: consts.RECEIVE_ARTICLES_COMMENTS;
-	payload: {
-		articleSlug: string;
-		loading: boolean;
-		comments: Array<Comment>;
-	};
-}
-
-export interface FetchErrorArticlesComments {
-	type: consts.RECEIVE_ERROR_ARTICLES_COMMENTS;
-	payload: {
-		articleSlug: string;
-		loading: boolean;
-		error: any;
-	};
-}
-
-export interface AddArticlesComments {
-	type: consts.ADD_ARTICLES_COMMENT;
-	payload: {
-		articleSlug: string;
-		loading: boolean;
-		comments: any;
-	};
-}
-
-export interface RemoveArticlesComments {
-	type: consts.REMOVE_ARTICLES_COMMENT;
-	payload: {
-		articleSlug: string;
-		commentId: string;
-		loading: boolean;
-	};
-}
-
-export interface SetFavoriteArticles {
-	type: consts.SET_FAVORITE_ARTICLES;
-	payload: {
-		favorite: Array<Article>;
-	};
-}
-
-export interface FollowUser {
-	type: consts.FOLLOW_USER;
-	payload: {
-		user: User;
-	};
 }

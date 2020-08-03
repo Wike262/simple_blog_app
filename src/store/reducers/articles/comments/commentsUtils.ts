@@ -1,5 +1,6 @@
 import { updateItemInArray, updateObject } from '../../utils';
 import * as types from '../../../../types';
+import * as actionTypes from '../../../types';
 import { ThunkDispatch } from 'redux-thunk';
 import { apiAction } from '../../../../middleware/apiActions';
 import { receive, remove, request, add, receiveError } from './commentsActions';
@@ -9,35 +10,35 @@ interface State {
 	loading: boolean;
 }
 
-export function receiveComments(state: State, action: types.ReceiveArticlesComments) {
+export function receiveComments(state: State, action: actionTypes.ReceiveArticlesComments) {
 	const newArticles = updateItemInArray(state.articles, action.payload.articleSlug, (article: types.Article) => {
 		return updateObject(article, { comments: { loading: false, comments: action.payload.comments } });
 	});
 	return { ...state, articles: newArticles };
 }
 
-export function requestComments(state: State, action: types.RequestArticlesComments) {
+export function requestComments(state: State, action: actionTypes.RequestArticlesComments) {
 	const newArticles = updateItemInArray(state.articles, action.payload.articleSlug, (article: types.Article) => {
 		return updateObject(article, { loading: true });
 	});
 	return { ...state, articles: newArticles };
 }
 
-export function fetchErrorComments(state: State, action: types.FetchErrorArticlesComments) {
+export function fetchErrorComments(state: State, action: actionTypes.FetchErrorArticlesComments) {
 	const newArticles = updateItemInArray(state.articles, action.payload.articleSlug, (article: types.Article) => {
 		return updateObject(article, { error: action.payload.error });
 	});
 	return { ...state, articles: newArticles };
 }
 
-export function addComments(state: State, action: types.AddArticlesComments) {
+export function addComments(state: State, action: actionTypes.AddArticlesComments) {
 	const newArticles = updateItemInArray(state.articles, action.payload.articleSlug, (article: types.Article) => {
 		return { ...article, comments: { comments: [action.payload.comments].concat(article.comments.comments) } };
 	});
 	return { ...state, articles: newArticles };
 }
 
-export function removeComment(state: State, action: types.RemoveArticlesComments) {
+export function removeComment(state: State, action: actionTypes.RemoveArticlesComments) {
 	const newArticles = updateItemInArray(state.articles, action.payload.articleSlug, (article: types.Article) => {
 		return {
 			...article,
@@ -55,7 +56,7 @@ export const getComments = (articleSlug: string) => (dispatch: ThunkDispatch<{},
 		apiAction({
 			url: `/articles/${articleSlug}/comments`,
 			onSuccess: receive(articleSlug),
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'GET_ARTICLES_FEED',
 		})
 	);
@@ -70,7 +71,7 @@ export const deleteComment = (articleSlug: string, commentId: string, token: str
 			url: `/articles/${articleSlug}/comments/${commentId}`,
 			method: 'DELETE',
 			onSuccess: remove(articleSlug, commentId),
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'DELETE_COMMENT',
 			token,
 		})
@@ -87,7 +88,7 @@ export const addComment = (articleSlug: string, message: string, token: string) 
 			url: `/articles/${articleSlug}/comments`,
 			method: 'POST',
 			onSuccess: add(articleSlug),
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'ADD_ARTICLE_COMMENT',
 			data: JSON.stringify(req),
 			token,

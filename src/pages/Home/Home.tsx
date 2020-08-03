@@ -16,9 +16,9 @@ import {
 
 interface Props {
 	userToken: string;
-	setArticles: Function;
-	setArticlesFeed: Function;
-	setArticlesByTag: Function;
+	setArticles: (token: string) => void;
+	setArticlesFeed: (token: string) => void;
+	setArticlesByTag: (token: string) => void;
 }
 
 const Home = ({ userToken, setArticles, setArticlesFeed, setArticlesByTag }: Props) => {
@@ -53,7 +53,7 @@ const Home = ({ userToken, setArticles, setArticlesFeed, setArticlesByTag }: Pro
 	return (
 		<>
 			<HelloBanner>
-				<Logotype>Simble blog app</Logotype>
+				<Logotype>Simple blog app</Logotype>
 				<p>A place to share your knowledge</p>
 			</HelloBanner>
 			<Container>

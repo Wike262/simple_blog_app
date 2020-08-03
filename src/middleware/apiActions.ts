@@ -1,4 +1,4 @@
-import { API, API_START, API_END, ACCESS_DENIED, API_ERROR } from '../constans';
+import { API, API_START, API_END, ACCESS_DENIED, API_ERROR } from '../constants';
 
 export const apiStart = (label: any) => ({
 	type: API_START,
@@ -28,7 +28,7 @@ interface Props {
 	data?: any;
 	token?: string | null;
 	onSuccess?: Function;
-	onFailer?: Function;
+	onFailure?: Function;
 	label?: string;
 	headersOverride?: any;
 }
@@ -39,7 +39,7 @@ export function apiAction({
 	data = null,
 	token = null,
 	onSuccess = () => {},
-	onFailer = () => {},
+	onFailure = () => {},
 	label = '',
 	headersOverride = null,
 }: Props) {
@@ -51,7 +51,7 @@ export function apiAction({
 			data,
 			token,
 			onSuccess,
-			onFailer,
+			onFailure,
 			label,
 			headersOverride,
 		},

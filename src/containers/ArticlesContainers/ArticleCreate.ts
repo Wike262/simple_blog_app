@@ -12,9 +12,9 @@ const stateToProps = (state: StoreState, ownProps: any) => {
 	};
 };
 
-const dispathToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
+const dispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
 	create: (article: Article, token: string) => dispatch(addArticle(article, token)),
 	update: (article: Article, token: string) => dispatch(updateArticle(article, token)),
 });
 
-export default connect(stateToProps, dispathToProps)(ArticleCreate);
+export default connect(stateToProps, dispatchToProps)(ArticleCreate);

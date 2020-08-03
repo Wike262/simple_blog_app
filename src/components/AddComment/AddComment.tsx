@@ -5,7 +5,7 @@ import * as types from '../../types';
 import { MessageWrapper, Message, AddCommentButton } from './AddCommentStyle';
 
 interface Props {
-	setComment: Function;
+	setComment: (article: string, message: string, token: string) => void;
 	article: string;
 	user: types.User;
 }

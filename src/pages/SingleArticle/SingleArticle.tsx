@@ -26,15 +26,15 @@ import * as types from '../../types';
 interface Props {
 	article: types.Article;
 	user: types.User;
-	setComments: Function;
-	favorited: Function;
-	unFavorite: Function;
-	follow: Function;
-	unFollow: Function;
-	remove: Function;
+	setComments: (articleSlug: string) => void;
+	favorite: (token: string, articleSlug: string) => void;
+	unFavorite: (token: string, articleSlug: string) => void;
+	follow: (username: string, token: string) => void;
+	unFollow: (username: string, token: string) => void;
+	remove: (articleSlug: string, token: string) => void;
 }
 
-const Article = ({ article, user, setComments, favorited, unFavorite, follow, unFollow, remove }: Props) => {
+const Article = ({ article, user, setComments, favorite, unFavorite, follow, unFollow, remove }: Props) => {
 	const history = useHistory();
 	React.useEffect(() => {
 		if (article.comments === undefined) setComments(article.slug);
@@ -45,7 +45,7 @@ const Article = ({ article, user, setComments, favorited, unFavorite, follow, un
 	const handleFavorite = () => {
 		if (favoriteByUser === undefined) {
 			article.favoritesCount++;
-			favorited(user.token, article.slug);
+			favorite(user.token, article.slug);
 		} else {
 			article.favoritesCount--;
 			unFavorite(user.token, article.slug);
@@ -86,7 +86,7 @@ const Article = ({ article, user, setComments, favorited, unFavorite, follow, un
 							) : (
 								<FollowingButton active={article.author.following} onClick={handleFollow}>
 									<MdFavorite />
-									{article.author.following ? `Unfollow ${article.author.username}` : `Follow ${article.author.username}`}
+									{article.author.following ? `Un follow ${article.author.username}` : `Follow ${article.author.username}`}
 								</FollowingButton>
 							)}
 							{article.author.username === user.username ? (
@@ -96,7 +96,7 @@ const Article = ({ article, user, setComments, favorited, unFavorite, follow, un
 							) : (
 								<FavoriteButton active={favoriteByUser !== undefined ? true : false} onClick={handleFavorite}>
 									<MdFavorite />
-									{favoriteByUser !== undefined ? 'Unfavorite Article ' : 'Favortie Article '}
+									{favoriteByUser !== undefined ? 'Un favorite Article ' : 'Favorite Article '}
 									{article.favoritesCount}
 								</FavoriteButton>
 							)}

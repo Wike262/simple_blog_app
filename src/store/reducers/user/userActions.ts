@@ -1,20 +1,21 @@
-import * as consts from '../../../constans';
+import * as constants from '../../../constants';
 import * as types from '../../../types';
+import * as actionTypes from '../../types';
 
 export type UserActions =
-	| types.RequestUser
-	| types.ReceiveUser
-	| types.FetchErrorUser
-	| types.AddArticleToFavorite
-	| types.RemoveArticleFroFavorite
-	| types.SetFavoriteArticles;
+	| actionTypes.RequestUser
+	| actionTypes.ReceiveUser
+	| actionTypes.FetchErrorUser
+	| actionTypes.AddArticleToFavorite
+	| actionTypes.RemoveArticleFroFavorite
+	| actionTypes.SetFavoriteArticles;
 
-export const request = (): types.RequestUser => ({
-	type: consts.REQUEST_USER,
+export const request = (): actionTypes.RequestUser => ({
+	type: constants.REQUEST_USER,
 });
 
 export const receive = (user: any) => ({
-	type: consts.RECEIVE_USER,
+	type: constants.RECEIVE_USER,
 	payload: {
 		loading: false,
 		user: user.user,
@@ -22,22 +23,22 @@ export const receive = (user: any) => ({
 });
 
 export const setFavoriteArticles = (articles: Array<types.Article>) => ({
-	type: consts.SET_FAVORITE_ARTICLES,
+	type: constants.SET_FAVORITE_ARTICLES,
 	payload: {
-		favotire: articles,
+		favorite: articles,
 	},
 });
 
-export const receiveError = (error: any): types.FetchErrorUser => ({
-	type: consts.RECEIVE_ERROR_USER,
+export const receiveError = (error: any): actionTypes.FetchErrorUser => ({
+	type: constants.RECEIVE_ERROR_USER,
 	payload: {
 		loading: false,
 		error,
 	},
 });
 
-export const addToFavorite = (articleSlug: string) => (articles: any): types.AddArticleToFavorite => ({
-	type: consts.ADD_ARTICLE_TO_FAVORITE,
+export const addToFavorite = (articleSlug: string) => (articles: any): actionTypes.AddArticleToFavorite => ({
+	type: constants.ADD_ARTICLE_TO_FAVORITE,
 	payload: {
 		loading: false,
 		articles: articles.article,
@@ -45,8 +46,8 @@ export const addToFavorite = (articleSlug: string) => (articles: any): types.Add
 	},
 });
 
-export const removeFromFavorite = (articleSlug: string) => (articles: any): types.RemoveArticleFroFavorite => ({
-	type: consts.REMOVE_ARTICLE_FROM_FAVORITE,
+export const removeFromFavorite = (articleSlug: string) => (articles: any): actionTypes.RemoveArticleFroFavorite => ({
+	type: constants.REMOVE_ARTICLE_FROM_FAVORITE,
 	payload: {
 		loading: false,
 		articles: articles.article,
@@ -54,8 +55,8 @@ export const removeFromFavorite = (articleSlug: string) => (articles: any): type
 	},
 });
 
-export const follow = (user: types.User): types.FollowUser => ({
-	type: consts.FOLLOW_USER,
+export const follow = (user: types.User): actionTypes.FollowUser => ({
+	type: constants.FOLLOW_USER,
 	payload: {
 		user,
 	},

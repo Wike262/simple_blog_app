@@ -2,21 +2,21 @@ import React, { FormEvent } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { FormWrapper, Form, Input, Title, Button, Error } from './LoginStyles';
 import { User } from '../../types';
+import * as constants from '../constants';
 
 interface Props {
-	login: Function;
 	user: User;
+	login: (email: string, password: string) => void;
 }
 
-const Login = ({ login, user }: Props) => {
+const Login = ({ user, login }: Props) => {
 	const [active, setUnActive] = React.useState(true);
-	console.log(login, user.error);
 	if (user?.token) return <Redirect to="/" />;
 
-	const handlerChande = () => {
+	const handlerChange = () => {
 		if (
-			!!(document.getElementById('Login__Email') as HTMLInputElement).value &&
-			!!(document.getElementById('Login__Password') as HTMLInputElement).value
+			!!(document.getElementById(constants.LOGIN_EMAIL) as HTMLInputElement).value &&
+			!!(document.getElementById(constants.LOGIN_PASSWORD) as HTMLInputElement).value
 		)
 			setUnActive(false);
 		else setUnActive(true);
@@ -37,11 +37,18 @@ const Login = ({ login, user }: Props) => {
 					<Link to="/register">Need an account?</Link>
 				</Title>
 				<Error>{user?.error ? `Email or password: ${Object.values(user.error)[0]}` : ''}</Error>
-				<Input onChange={handlerChande} autoComplete="email" id="Login__Email" type="email" placeholder="Email" required />
 				<Input
-					onChange={handlerChande}
+					id={constants.LOGIN_EMAIL}
+					onChange={handlerChange}
+					autoComplete="email"
+					type="email"
+					placeholder="Email"
+					required
+				/>
+				<Input
+					id={constants.LOGIN_PASSWORD}
+					onChange={handlerChange}
 					autoComplete="current-password"
-					id="Login__Password"
 					type="password"
 					placeholder="Password"
 					required

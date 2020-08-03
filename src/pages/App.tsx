@@ -17,28 +17,27 @@ import { Page } from './AppStyles';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface Props {
-	login: Function;
-}
-
-function getCookie(name: string) {
-	name = name + '=';
-	var decodedCookie = decodeURIComponent(document.cookie);
-	let ca = decodedCookie.split(';');
-	for (let i = 0; i < ca.length; i++) {
-		let c = ca[i];
-		while (c.charAt(0) === ' ') {
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) === 0) {
-			return c.substring(name.length, c.length);
-		}
-	}
-	return '';
+	login: (token: string) => void;
 }
 
 class App extends React.Component<Props> {
+	getCookie(name: string) {
+		name = name + '=';
+		let decodedCookie = decodeURIComponent(document.cookie);
+		let ca = decodedCookie.split(';');
+		for (let i = 0; i < ca.length; i++) {
+			let c = ca[i];
+			while (c.charAt(0) === ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) === 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return '';
+	}
 	componentDidMount = () => {
-		if (getCookie('token')) return this.props.login(getCookie('token'));
+		if (this.getCookie('token')) return this.props.login(this.getCookie('token'));
 	};
 
 	render() {

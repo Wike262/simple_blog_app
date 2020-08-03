@@ -6,14 +6,14 @@ import { CommentWrapper, Message, AuthorImage, MetaInfo, DeleteButton } from './
 import { User, Comment } from '../../types';
 
 interface Props {
-	remove: Function;
 	comments: Array<Comment>;
 	articleSlug: string;
 	user: User;
+	remove: (articleSlug: string, id: string, token: string) => void;
 }
 
 const Comments = ({ comments, remove, articleSlug, user }: Props) => {
-	if (comments !== undefined) {
+	if (comments) {
 		return (
 			<>
 				{comments.map((item: Comment) => {

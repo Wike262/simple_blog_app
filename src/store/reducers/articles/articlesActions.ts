@@ -1,22 +1,22 @@
-import * as consts from '../../../constans';
-import * as types from '../../../types';
+import * as constants from '../../../constants';
+import * as actionTypes from '../../types';
 
 export type ArticlesActions =
-	| types.RequestArticles
-	| types.ReceiveArticles
-	| types.FetchErrorArticles
-	| types.RequestArticlesComments
-	| types.ReceiveArticlesComments
-	| types.FetchErrorArticlesComments
-	| types.AddArticlesComments
-	| types.RemoveArticlesComments;
+	| actionTypes.RequestArticles
+	| actionTypes.ReceiveArticles
+	| actionTypes.FetchErrorArticles
+	| actionTypes.RequestArticlesComments
+	| actionTypes.ReceiveArticlesComments
+	| actionTypes.FetchErrorArticlesComments
+	| actionTypes.AddArticlesComments
+	| actionTypes.RemoveArticlesComments;
 
-export const request = (): types.RequestArticles => ({
-	type: consts.REQUEST_ARTICLES,
+export const request = (): actionTypes.RequestArticles => ({
+	type: constants.REQUEST_ARTICLES,
 });
 
-export const receive = (articles: any): types.ReceiveArticles => ({
-	type: consts.RECEIVE_ARTICLES,
+export const receive = (articles: any): actionTypes.ReceiveArticles => ({
+	type: constants.RECEIVE_ARTICLES,
 	payload: {
 		loading: false,
 		articles: articles.articles,
@@ -24,8 +24,8 @@ export const receive = (articles: any): types.ReceiveArticles => ({
 	},
 });
 
-export const add = (articles: any): types.ReceiveArticles => ({
-	type: consts.RECEIVE_ARTICLES,
+export const add = (articles: any): actionTypes.ReceiveArticles => ({
+	type: constants.RECEIVE_ARTICLES,
 	payload: {
 		loading: false,
 		articles: [articles.article],
@@ -33,8 +33,8 @@ export const add = (articles: any): types.ReceiveArticles => ({
 	},
 });
 
-export const favorite = (articleSlug: string) => (articles: any): types.AddArticleToFavorite => ({
-	type: consts.ADD_ARTICLE_TO_FAVORITE,
+export const favorite = (articleSlug: string) => (articles: any): actionTypes.AddArticleToFavorite => ({
+	type: constants.ADD_ARTICLE_TO_FAVORITE,
 	payload: {
 		loading: false,
 		articles: articles.article,
@@ -42,16 +42,16 @@ export const favorite = (articleSlug: string) => (articles: any): types.AddArtic
 	},
 });
 
-export const receiveError = (error: any): types.FetchErrorArticles => ({
-	type: consts.RECEIVE_ERROR_ARTICLES,
+export const receiveError = (error: any): actionTypes.FetchErrorArticles => ({
+	type: constants.RECEIVE_ERROR_ARTICLES,
 	payload: {
 		loading: false,
 		error,
 	},
 });
 
-export const remove = (): types.DeleteArticle => ({
-	type: consts.DELETE_ARTICLE,
+export const remove = (): actionTypes.DeleteArticle => ({
+	type: constants.DELETE_ARTICLE,
 	payload: {
 		loading: false,
 	},

@@ -8,8 +8,8 @@ import { User } from '../../types';
 
 interface Props {
 	author: User;
-	userArticles: Function;
-	userFavorite: Function;
+	userArticles: (username: string, token: string) => void;
+	userFavorite: (username: string, token: string) => void;
 }
 
 const Profile = ({ author, userArticles, userFavorite }: Props) => {
@@ -36,8 +36,8 @@ const Profile = ({ author, userArticles, userFavorite }: Props) => {
 							<ArticlesChooseButtons onClick={handleClick} active={activeFeed === 'My articles' ? true : false}>
 								My articles
 							</ArticlesChooseButtons>
-							<ArticlesChooseButtons onClick={handleClick} active={activeFeed === 'Favorited articles' ? true : false}>
-								Favorited articles
+							<ArticlesChooseButtons onClick={handleClick} active={activeFeed === 'Favorite articles' ? true : false}>
+								Favorite articles
 							</ArticlesChooseButtons>
 						</ArticlesChoose>
 						<Articles />

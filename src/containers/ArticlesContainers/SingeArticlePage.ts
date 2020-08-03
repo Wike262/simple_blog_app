@@ -6,7 +6,7 @@ import { getArticles, getArticlesFeed, deleteArticle } from '../../store/reducer
 import { getComments } from '../../store/reducers/articles/comments/commentsUtils';
 import {
 	addArticleToFavorite,
-	removeArticleFromFavoritre,
+	removeArticleFromFavorite,
 	followUser,
 	unFollowUser,
 } from '../../store/reducers/user/userUtils';
@@ -17,8 +17,8 @@ const dispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>) => ({
 	articles: () => dispatch(getArticles()),
 	articlesFeed: (token: string) => dispatch(getArticlesFeed(token)),
 	setComments: (article: string) => dispatch(getComments(article)),
-	favorited: (articleSlug: string, token: string) => dispatch(addArticleToFavorite(articleSlug, token)),
-	unFavorite: (articleSlug: string, token: string) => dispatch(removeArticleFromFavoritre(articleSlug, token)),
+	favorite: (articleSlug: string, token: string) => dispatch(addArticleToFavorite(articleSlug, token)),
+	unFavorite: (articleSlug: string, token: string) => dispatch(removeArticleFromFavorite(articleSlug, token)),
 	follow: (username: string, token: string) => dispatch(followUser(username, token)),
 	unFollow: (username: string, token: string) => dispatch(unFollowUser(username, token)),
 	remove: (articleSlug: string, token: string) => dispatch(deleteArticle(articleSlug, token)),

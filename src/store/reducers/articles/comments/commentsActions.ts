@@ -1,22 +1,22 @@
-import * as consts from '../../../../constans';
-import * as types from '../../../../types';
+import * as constants from '../../../../constants';
+import * as actionTypes from '../../../types';
 
 export type CommentsActions =
-	| types.RequestArticlesComments
-	| types.ReceiveArticlesComments
-	| types.FetchErrorArticlesComments
-	| types.AddArticlesComments
-	| types.RemoveArticlesComments;
+	| actionTypes.RequestArticlesComments
+	| actionTypes.ReceiveArticlesComments
+	| actionTypes.FetchErrorArticlesComments
+	| actionTypes.AddArticlesComments
+	| actionTypes.RemoveArticlesComments;
 
-export const request = (articleSlug: string) => (): types.RequestArticlesComments => ({
-	type: consts.REQUEST_ARTICLES_COMMENTS,
+export const request = (articleSlug: string) => (): actionTypes.RequestArticlesComments => ({
+	type: constants.REQUEST_ARTICLES_COMMENTS,
 	payload: {
 		articleSlug,
 	},
 });
 
-export const receive = (articleSlug: string) => (comments: any): types.ReceiveArticlesComments => ({
-	type: consts.RECEIVE_ARTICLES_COMMENTS,
+export const receive = (articleSlug: string) => (comments: any): actionTypes.ReceiveArticlesComments => ({
+	type: constants.RECEIVE_ARTICLES_COMMENTS,
 	payload: {
 		articleSlug,
 		loading: false,
@@ -24,8 +24,8 @@ export const receive = (articleSlug: string) => (comments: any): types.ReceiveAr
 	},
 });
 
-export const add = (articleSlug: string) => (comment: any): types.AddArticlesComments => ({
-	type: consts.ADD_ARTICLES_COMMENT,
+export const add = (articleSlug: string) => (comment: any): actionTypes.AddArticlesComments => ({
+	type: constants.ADD_ARTICLES_COMMENT,
 	payload: {
 		articleSlug,
 		loading: false,
@@ -33,8 +33,10 @@ export const add = (articleSlug: string) => (comment: any): types.AddArticlesCom
 	},
 });
 
-export const remove = (articleSlug: string, commentId: string) => (comment: any): types.RemoveArticlesComments => ({
-	type: consts.REMOVE_ARTICLES_COMMENT,
+export const remove = (articleSlug: string, commentId: string) => (
+	comment: any
+): actionTypes.RemoveArticlesComments => ({
+	type: constants.REMOVE_ARTICLES_COMMENT,
 	payload: {
 		articleSlug,
 		commentId,
@@ -42,8 +44,8 @@ export const remove = (articleSlug: string, commentId: string) => (comment: any)
 	},
 });
 
-export const receiveError = (articleSlug: string) => (error: any): types.FetchErrorArticlesComments => ({
-	type: consts.RECEIVE_ERROR_ARTICLES_COMMENTS,
+export const receiveError = (articleSlug: string) => (error: any): actionTypes.FetchErrorArticlesComments => ({
+	type: constants.RECEIVE_ERROR_ARTICLES_COMMENTS,
 	payload: {
 		articleSlug,
 		loading: false,

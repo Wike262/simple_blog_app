@@ -9,7 +9,7 @@ export const loginWithToken = (token: string) => (dispatch: ThunkDispatch<{}, {}
 		apiAction({
 			url: '/user',
 			onSuccess: receive,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'LOGIN_WITH_TOKEN',
 			token,
 		})
@@ -24,7 +24,7 @@ export const login = (email: string, password: string) => (dispatch: ThunkDispat
 			url: '/users/login',
 			method: 'POST',
 			onSuccess: receive,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'LOGIN',
 			data: JSON.stringify(req),
 		})
@@ -42,7 +42,7 @@ export const register = (username: string, email: string, password: string) => (
 			url: '/users',
 			method: 'POST',
 			onSuccess: receive,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'REGISTER',
 			data: JSON.stringify(req),
 		})
@@ -58,7 +58,7 @@ export const updateUser = (user: types.User, token: string) => (dispatch: ThunkD
 			url: '/user',
 			method: 'PUT',
 			onSuccess: receive,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			token,
 			label: 'UPDATE_USER',
 			data: JSON.stringify(req),
@@ -73,14 +73,14 @@ export const addArticleToFavorite = (articleSlug: string, token: string) => (dis
 			url: `/articles/${articleSlug}/favorite`,
 			method: 'POST',
 			onSuccess: addToFavorite(articleSlug),
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'ADD_ARTICLE_TO_FAVORITE',
 			token,
 		})
 	);
 };
 
-export const removeArticleFromFavoritre = (articleSlug: string, token: string) => (
+export const removeArticleFromFavorite = (articleSlug: string, token: string) => (
 	dispatch: ThunkDispatch<{}, {}, any>
 ) => {
 	dispatch(request());
@@ -89,7 +89,7 @@ export const removeArticleFromFavoritre = (articleSlug: string, token: string) =
 			url: `/articles/${articleSlug}/favorite`,
 			method: 'DELETE',
 			onSuccess: removeFromFavorite(articleSlug),
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'DELETE_ARTICLE_TO_FAVORITE',
 			token,
 		})
@@ -103,7 +103,7 @@ export const followUser = (username: string, token: string) => (dispatch: ThunkD
 			url: `/profiles/${username}/follow`,
 			method: 'POST',
 			onSuccess: follow,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'FOLLOW_USER',
 			token,
 		})
@@ -117,7 +117,7 @@ export const unFollowUser = (username: string, token: string) => (dispatch: Thun
 			url: `/profiles/${username}/follow`,
 			method: 'DELETE',
 			onSuccess: follow,
-			onFailer: receiveError,
+			onFailure: receiveError,
 			label: 'UNFOLLOW_USER',
 			token,
 		})

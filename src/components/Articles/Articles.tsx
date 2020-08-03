@@ -11,10 +11,10 @@ interface Props {
 	feed?: string;
 	loading: boolean;
 	user: User;
-	favorited: Function;
-	unFavorite: Function;
-	setArticles: Function;
-	setArticlesFeed: Function;
+	favorite: (token: string) => (articleSlug: string) => void;
+	unFavorite: (token: string) => (articleSlug: string) => void;
+	setArticles: (token: string, offset: number) => void;
+	setArticlesFeed: (token: string, offset: number) => void;
 }
 
 const Articles = ({
@@ -23,7 +23,7 @@ const Articles = ({
 	articlesCount,
 	loading,
 	user,
-	favorited,
+	favorite,
 	unFavorite,
 	setArticles,
 	setArticlesFeed,
@@ -31,7 +31,7 @@ const Articles = ({
 	const [currentPage, setCurrentPage] = React.useState(1);
 
 	if (loading) return <p>Loading articles...</p>;
-	if (articles.length === 0) return <p>Dosen't have an articles</p>;
+	if (articles.length === 0) return <p>Do not have an articles</p>;
 
 	const handleChangePage = (page: number) => {
 		setCurrentPage(page);
@@ -62,8 +62,8 @@ const Articles = ({
 				<SingleArticle
 					key={item.slug}
 					article={item}
-					favoriteByUser={user.favorites?.find((acticle) => acticle?.slug === item.slug)}
-					favorited={favorited(user.token)}
+					favoriteByUser={user.favorites?.find((article) => article?.slug === item.slug)}
+					favorite={favorite(user.token)}
 					unFavorite={unFavorite(user.token)}
 				/>
 			))}

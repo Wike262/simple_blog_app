@@ -17,16 +17,16 @@ import { MdFavorite } from 'react-icons/md';
 interface Props {
 	article: types.Article;
 	favoriteByUser?: types.Article;
-	favorited: Function;
-	unFavorite: Function;
+	favorite: (articleSlug: string) => void;
+	unFavorite: (articleSlug: string) => void;
 }
 
-const Article = ({ article, favoriteByUser, favorited, unFavorite }: Props) => {
+const Article = ({ article, favoriteByUser, favorite, unFavorite }: Props) => {
 	const date = new Date(Date.parse(article.updatedAt.toString())).toDateString();
 	const handleFavorite = () => {
-		if (favoriteByUser === undefined) {
+		if (!!favoriteByUser) {
 			article.favoritesCount++;
-			favorited(article.slug);
+			favorite(article.slug);
 		} else {
 			article.favoritesCount--;
 			unFavorite(article.slug);
@@ -45,7 +45,7 @@ const Article = ({ article, favoriteByUser, favorited, unFavorite }: Props) => {
 					</Link>
 					<p>{date}</p>
 				</Info>
-				<FavoriteButton active={favoriteByUser !== undefined ? true : false} onClick={handleFavorite}>
+				<FavoriteButton active={favoriteByUser ? true : false} onClick={handleFavorite}>
 					<MdFavorite />
 					{article.favoritesCount}
 				</FavoriteButton>
